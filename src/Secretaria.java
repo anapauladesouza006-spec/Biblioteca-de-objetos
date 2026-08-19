@@ -1,9 +1,17 @@
 public class Secretaria {
-    int id_secretaria;
-    String nome;
-    String cargo;
-    String telefone;
-    String email;
+    private int id_secretaria;
+    private String nome;
+    private String cargo;
+    private String telefone;
+    private String email;
+
+    public Secretaria(int id, String nome, String cargo, String telefone, String email){
+        this.id_secretaria = id;
+        this.nome = nome;
+        this.cargo = cargo;
+        this.telefone = telefone;
+        this.email = email;
+    }
 
     public void cadastrarLeitor(Leitor leitor) {
 
@@ -51,5 +59,10 @@ public class Secretaria {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString(){
+        return id_secretaria + nome + cargo + telefone + email;
     }
 }

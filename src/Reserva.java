@@ -1,11 +1,19 @@
 import java.util.Date;
 
 public class Reserva {
-    int id_reseva;
-    String status;
-    Date data_retirada;
-    int id_livro;
-    int id_leitor;
+    private int id_reseva;
+    private String status;
+    private Date data_retirada;
+    private int id_livro;
+    private int id_leitor;
+
+    public Reserva(int id, String status, Date data_retirada, int id_livro, int id_leitor){
+        this.id_reseva = id;
+        this.status = status;
+        this.data_retirada = data_retirada;
+        this.id_livro = id_livro;
+        this.id_leitor  = id_leitor;
+    }
 
     public void reservar(Livro livro) {
 
@@ -53,5 +61,11 @@ public class Reserva {
 
     public void setId_leitor(int id_leitor) {
         this.id_leitor = id_leitor;
+    }
+
+    @Override
+    public String toString(){
+        return id_reseva + status + data_retirada.toString() + id_livro + id_leitor;
+
     }
 }

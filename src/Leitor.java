@@ -1,9 +1,15 @@
 public class Leitor {
-    int id_leitor;
-    String nome;
-    String telefone;
-    String cpf;
+    private int id_leitor;
+    private String nome;
+    private String telefone;
+    private String cpf;
 
+    public Leitor (int id, String nome,String telefone,String cpf){
+        this.id_leitor = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.cpf = cpf;
+    }
     public void solicitar(Leitor leitor) {
 
     }
@@ -36,6 +42,9 @@ public class Leitor {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
+     @Override
+    public String toString(){
+        return id_leitor + nome + telefone + cpf;
+     }
 
 }

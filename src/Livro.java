@@ -1,9 +1,17 @@
 public class Livro {
-    int id_livro;
-    String titulo;
-    String autor;
-    String genero;
-    String status;
+    private int id_livro;
+    private String titulo;
+    private String autor;
+    private String genero;
+    private String status;
+
+    public Livro(int id, String titulo, String autor, String genero, String status){
+        this.id_livro = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.genero = genero;
+        this.status = status;
+    }
 
     public void emprestar(Livro livro) {
 
@@ -51,5 +59,10 @@ public class Livro {
     
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString(){
+        return id_livro + titulo + autor + genero + status;
     }
 }

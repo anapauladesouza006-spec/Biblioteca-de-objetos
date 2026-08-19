@@ -1,11 +1,19 @@
 import java.util.Date;
 
 public class Emprestimo {
-    int id_emprestimo;
-    Date data_devolucao;
-    int id_livro;
-    int id_secretaria;
-    int id_leitor;
+    private int id_emprestimo;
+    private Date data_devolucao;
+    private int id_livro;
+    private int id_secretaria;
+    private int id_leitor;
+
+    public Emprestimo (int id, Date data_devolucao, int id_livro, int id_secretaria, int id_leitor){
+        this.id_emprestimo = id;
+        this.data_devolucao = data_devolucao;
+        this. id_livro = id_livro;
+        this.id_secretaria = id_secretaria;
+        this.id_leitor = id_leitor;
+    }
 
     public void reservar(Livro livro) {
 
@@ -44,5 +52,10 @@ public class Emprestimo {
     }
     public void setId_leitor(int id_leitor) {
         this.id_leitor = id_leitor;
+    }
+
+    @Override
+    public String toString(){
+        return id_emprestimo + data_devolucao.toString() + id_livro + id_secretaria + id_leitor;
     }
 }
