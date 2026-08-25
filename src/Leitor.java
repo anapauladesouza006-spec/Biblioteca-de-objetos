@@ -44,7 +44,7 @@ public class Leitor {
     }
      @Override
     public String toString(){
-        return id_leitor + nome + telefone + cpf;
+        return id_leitor + " " + nome + " " + telefone + " " + cpf;
      }
 
 }

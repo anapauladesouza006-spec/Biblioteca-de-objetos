@@ -63,6 +63,6 @@ public class Livro {
 
     @Override
     public String toString(){
-        return id_livro + titulo + autor + genero + status;
+        return id_livro + " " + titulo + " " + autor + " " + genero + " " + status;
     }
 }

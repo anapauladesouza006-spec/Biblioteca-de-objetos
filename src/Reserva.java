@@ -65,7 +65,7 @@ public class Reserva {
 
     @Override
     public String toString(){
-        return id_reseva + status + data_retirada.toString() + id_livro + id_leitor;
+        return id_reseva + " " + status + " " + data_retirada.toString() + " " + id_livro + " " + id_leitor;
 
     }
 }

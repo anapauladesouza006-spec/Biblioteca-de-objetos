@@ -63,6 +63,6 @@ public class Secretaria {
 
     @Override
     public String toString(){
-        return id_secretaria + nome + cargo + telefone + email;
+        return id_secretaria + " " + nome + " " + cargo + " " + telefone + " " + email;
     }
 }
