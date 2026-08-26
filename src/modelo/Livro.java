@@ -1,3 +1,5 @@
+package modelo;
+
 public class Livro {
     private int id_livro;
     private String titulo;
@@ -5,7 +7,7 @@ public class Livro {
     private String genero;
     private String status;
 
-    public Livro(int id, String titulo, String autor, String genero, String status){
+    public Livro(int id, String titulo, String autor, String genero, String status) {
         this.id_livro = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -56,13 +58,13 @@ public class Livro {
     public String getStatus() {
         return status;
     }
-    
+
     public void setStatus(String status) {
         this.status = status;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return id_livro + " " + titulo + " " + autor + " " + genero + " " + status;
     }
 }

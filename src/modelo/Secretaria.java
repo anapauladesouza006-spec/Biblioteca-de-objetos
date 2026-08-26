@@ -1,3 +1,5 @@
+package modelo;
+
 public class Secretaria {
     private int id_secretaria;
     private String nome;
@@ -5,7 +7,7 @@ public class Secretaria {
     private String telefone;
     private String email;
 
-    public Secretaria(int id, String nome, String cargo, String telefone, String email){
+    public Secretaria(int id, String nome, String cargo, String telefone, String email) {
         this.id_secretaria = id;
         this.nome = nome;
         this.cargo = cargo;
@@ -62,7 +64,7 @@ public class Secretaria {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return id_secretaria + " " + nome + " " + cargo + " " + telefone + " " + email;
     }
 }

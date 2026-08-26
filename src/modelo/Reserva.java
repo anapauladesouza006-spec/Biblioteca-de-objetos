@@ -1,3 +1,5 @@
+package modelo;
+
 import java.util.Date;
 
 public class Reserva {
@@ -7,12 +9,12 @@ public class Reserva {
     private int id_livro;
     private int id_leitor;
 
-    public Reserva(int id, String status, Date data_retirada, int id_livro, int id_leitor){
+    public Reserva(int id, String status, Date data_retirada, int id_livro, int id_leitor) {
         this.id_reseva = id;
         this.status = status;
         this.data_retirada = data_retirada;
         this.id_livro = id_livro;
-        this.id_leitor  = id_leitor;
+        this.id_leitor = id_leitor;
     }
 
     public void reservar(Livro livro) {
@@ -64,7 +66,7 @@ public class Reserva {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return id_reseva + " " + status + " " + data_retirada.toString() + " " + id_livro + " " + id_leitor;
 
     }
