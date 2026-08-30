@@ -64,7 +64,7 @@ public class Secretaria {
     }
 
     public String toCSV(){
-        return "";
+        return String.join(";", String.valueOf(id_secretaria), nome, cargo, telefone, email);
     }
 
     @Override

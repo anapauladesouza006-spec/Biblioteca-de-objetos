@@ -1,5 +1,6 @@
 package modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reserva {
@@ -66,12 +67,14 @@ public class Reserva {
     }
 
     public String toCSV(){
-        return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return String.join(";", String.valueOf(id_reseva), status, sdf.format(data_retirada), String.valueOf(id_livro), String.valueOf(id_leitor));
     }
 
     @Override
     public String toString() {
-        return id_reseva + " " + status + " " + data_retirada.toString() + " " + id_livro + " " + id_leitor;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return id_reseva + " " + status + " " + sdf.format(data_retirada) + " " + id_livro + " " + id_leitor;
 
     }
 }

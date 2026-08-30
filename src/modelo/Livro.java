@@ -64,7 +64,7 @@ public class Livro {
     }
 
     public String toCSV(){
-        return "";
+        return String.join(";", String.valueOf(id_livro), titulo, autor, genero, status);
     }
 
     @Override

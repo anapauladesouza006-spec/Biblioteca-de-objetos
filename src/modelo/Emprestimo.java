@@ -1,5 +1,6 @@
 package modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Emprestimo {
@@ -66,11 +67,13 @@ public class Emprestimo {
     }
 
     public String toCSV(){
-        return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return String.join(";", String.valueOf(id_emprestimo), sdf.format(data_devolucao), String.valueOf(id_livro), String.valueOf(id_secretaria), String.valueOf(id_leitor));
     }
 
     @Override
     public String toString() {
-        return id_emprestimo + " " + data_devolucao.toString() + " " + id_livro + " " + id_secretaria + " " + id_leitor;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return id_emprestimo + " " + sdf.format(data_devolucao) + " " + id_livro + " " + id_secretaria + " " + id_leitor;
     }
 }

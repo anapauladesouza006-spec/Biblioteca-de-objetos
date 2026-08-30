@@ -54,7 +54,7 @@ public class Leitor {
     }
 
     public String toCSV(){
-        return "";
+        return String.join(";", String.valueOf(id_leitor), nome, telefone, cpf);
     }
 
     @Override
