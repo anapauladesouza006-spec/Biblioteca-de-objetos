@@ -121,7 +121,7 @@ public class manipuladorArquivos {
         return maiorId + 1;
     }
 
-    public static List<Leitor> lerLeitors() {
+    public static List<Leitor> lerLeitores() {
         List<Leitor> lista = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for (String[] campos : ler("Leitor", 5)) {
