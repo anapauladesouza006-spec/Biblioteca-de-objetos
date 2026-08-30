@@ -140,13 +140,14 @@ public class manipuladorArquivos {
 
     public static List<Reserva> lerReservas() {
         List<Reserva> lista = new ArrayList<>();
+        SimpleDateFormat df = new SimpleDateFormat();
         for (String[] campos : ler("Reserva", 4)) {
             try {
                 int id = Integer.parseInt(campos[0]);
                 String status = campos[1];
-                Date data_retirada = campos[2];
-                int id_livro = campos[3];
-                int id_leitor = campos[4];
+                Date data_retirada = df.parse(campos[2]);
+                int id_livro = Integer.parseInt(campos[3]);
+                int id_leitor = Integer.parseInt(campos[4]);
                 lista.add(new Reserva(id, status, data_retirada, id_livro, id_leitor));
             } catch (Exception e) {
                 System.err.println("Erro ao ler médico: " + Arrays.toString(campos));

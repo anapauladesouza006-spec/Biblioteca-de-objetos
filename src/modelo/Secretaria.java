@@ -63,6 +63,10 @@ public class Secretaria {
         this.email = email;
     }
 
+    public String toCSV(){
+        return "";
+    }
+
     @Override
     public String toString() {
         return id_secretaria + " " + nome + " " + cargo + " " + telefone + " " + email;

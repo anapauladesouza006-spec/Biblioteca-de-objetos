@@ -65,6 +65,10 @@ public class Reserva {
         this.id_leitor = id_leitor;
     }
 
+    public String toCSV(){
+        return "";
+    }
+
     @Override
     public String toString() {
         return id_reseva + " " + status + " " + data_retirada.toString() + " " + id_livro + " " + id_leitor;

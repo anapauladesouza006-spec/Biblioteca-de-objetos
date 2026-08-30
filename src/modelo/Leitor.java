@@ -53,6 +53,10 @@ public class Leitor {
         this.cpf = cpf;
     }
 
+    public String toCSV(){
+        return "";
+    }
+
     @Override
     public String toString() {
         return id_leitor + " " + nome + " " + telefone + " " + cpf;

@@ -65,6 +65,10 @@ public class Emprestimo {
         this.id_leitor = id_leitor;
     }
 
+    public String toCSV(){
+        return "";
+    }
+
     @Override
     public String toString() {
         return id_emprestimo + " " + data_devolucao.toString() + " " + id_livro + " " + id_secretaria + " " + id_leitor;

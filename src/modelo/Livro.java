@@ -63,6 +63,10 @@ public class Livro {
         this.status = status;
     }
 
+    public String toCSV(){
+        return "";
+    }
+
     @Override
     public String toString() {
         return id_livro + " " + titulo + " " + autor + " " + genero + " " + status;
