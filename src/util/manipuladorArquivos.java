@@ -4,7 +4,6 @@ import modelo.*;
 import javax.swing.*;
 import java.io.*;
 import java.sql.Time;
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -14,15 +13,20 @@ public class manipuladorArquivos {
     public static void salvarObjeto(String nomeClasse, Object objeto, int camposEsperados) {
         String linhaCSV = "";
 
-        if (objeto instanceof Livro vro) {
+        if (objeto instanceof Livro) {
+            Livro vro = (Livro) objeto;
             linhaCSV = vro.toCSV();
-        } else if (objeto instanceof Reserva r) {
+        } else if (objeto instanceof Reserva) {
+            Reserva r = (Reserva) objeto;
             linhaCSV = r.toCSV();
-        } else if (objeto instanceof Leitor l) {
+        } else if (objeto instanceof Leitor) {
+            Leitor l = (Leitor) objeto;
             linhaCSV = l.toCSV();
-        } else if (objeto instanceof Secretaria s) {
+        } else if (objeto instanceof Secretaria) {
+            Secretaria s = (Secretaria) objeto;
             linhaCSV = s.toCSV();
-        } else if (objeto instanceof Emprestimo e) {
+        } else if (objeto instanceof Emprestimo) {
+            Emprestimo e = (Emprestimo) objeto;
             linhaCSV = e.toCSV();
         }
 
@@ -36,18 +40,22 @@ public class manipuladorArquivos {
             if (lista.get(i)[0].equals(Integer.toString(id))) {
                 String novaLinha = "";
 
-                if (novoObjeto instanceof Livro vro) {
+                if (novoObjeto instanceof Livro) {
+                    Livro vro = (Livro) novoObjeto;
                     novaLinha = vro.toCSV();
-                } else if (novoObjeto instanceof Reserva r) {
+                } else if (novoObjeto instanceof Reserva) {
+                    Reserva r = (Reserva) novoObjeto;
                     novaLinha = r.toCSV();
-                } else if (novoObjeto instanceof Leitor l) {
+                } else if (novoObjeto instanceof Leitor) {
+                    Leitor l = (Leitor) novoObjeto;
                     novaLinha = l.toCSV();
-                } else if (novoObjeto instanceof Secretaria s) {
+                } else if (novoObjeto instanceof Secretaria) {
+                    Secretaria s = (Secretaria) novoObjeto;
                     novaLinha = s.toCSV();
-                } else if (novoObjeto instanceof Emprestimo e) {
+                } else if (novoObjeto instanceof Emprestimo) {
+                    Emprestimo e = (Emprestimo) novoObjeto;
                     novaLinha = e.toCSV();
                 }
-
                 lista.set(i, novaLinha.split(";"));
                 break;
             }

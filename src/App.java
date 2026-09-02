@@ -21,7 +21,6 @@ public class App {
         List<Reserva> reservas = new ArrayList<>();
         List<Secretaria> secretarias = new ArrayList<>();
 
-
         emprestimos = manipuladorArquivos.lerEmprestimos();
         leitores = manipuladorArquivos.lerLeitores();
         livros = manipuladorArquivos.lerLivros();
@@ -34,7 +33,6 @@ public class App {
         int novoIdR = manipuladorArquivos.proximoId("Reserva");
         int novoIdS = manipuladorArquivos.proximoId("Secretaria");
 
-
         Emprestimo e = new Emprestimo(novoIdE, df.parse("24/08/2006"), 1, 1, 1);
         Leitor l = new Leitor(novoIdL, "Ana Paula", "11 54654654", "03516943272");
         Livro vro = new Livro(novoIdVro, "O Morro dos Ventos Uivantes", "Pedro Henrique", "Romance", "Emprestado");
@@ -43,7 +41,7 @@ public class App {
 
         manipuladorArquivos.salvarObjeto("Emprestimo", e, 5);
         manipuladorArquivos.salvarObjeto("Leitor", l, 4);
-        manipuladorArquivos.salvarObjeto("Livro", vro, 6);
+        manipuladorArquivos.salvarObjeto("Livro", vro, 5);
         manipuladorArquivos.salvarObjeto("Reserva", r, 5);
         manipuladorArquivos.salvarObjeto("Secretaria", s, 5);
 
@@ -55,35 +53,35 @@ public class App {
 
         System.out.println("Emprestimos:");
 
-        for(Emprestimo percorre : emprestimos){
+        for (Emprestimo percorre : emprestimos) {
             System.out.println(percorre.toString());
         }
 
         System.out.println("\n----------------------------------");
         System.out.println("Leitores:");
 
-        for(Leitor percorre : leitores){
+        for (Leitor percorre : leitores) {
             System.out.println(percorre.toString());
         }
 
         System.out.println("\n----------------------------------");
         System.out.println("Livros:");
 
-        for(Livro percorre : livros){
+        for (Livro percorre : livros) {
             System.out.println(percorre.toString());
         }
 
         System.out.println("\n----------------------------------");
         System.out.println("Reservas:");
 
-        for(Reserva percorre : reservas){
+        for (Reserva percorre : reservas) {
             System.out.println(percorre.toString());
         }
 
         System.out.println("\n----------------------------------");
         System.out.println("Secretarias:");
 
-        for(Secretaria percorre : secretarias){
+        for (Secretaria percorre : secretarias) {
             System.out.println(percorre.toString());
         }
 
