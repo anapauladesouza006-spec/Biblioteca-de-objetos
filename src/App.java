@@ -5,6 +5,7 @@ import modelo.Leitor;
 import modelo.Livro;
 import modelo.Reserva;
 import modelo.Secretaria;
+import util.manipuladorArquivos;
 
 import java.text.SimpleDateFormat;
 
@@ -23,6 +24,11 @@ public class App {
         System.out.println("Livro: " + vro);
         System.out.println("Reserva: " + r);
         System.out.println("Secretaria: " + s);
+        manipuladorArquivos.salvarObjeto("Emprestimo", e, 5);
+        manipuladorArquivos.salvarObjeto("Leitor", l, 4);
+        manipuladorArquivos.salvarObjeto("Livro", vro, 6);
+        manipuladorArquivos.salvarObjeto("Reserva", r, 5);
+        manipuladorArquivos.salvarObjeto("Secretaria", s, 5);
 
     }
 }
