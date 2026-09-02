@@ -123,16 +123,15 @@ public class manipuladorArquivos {
 
     public static List<Leitor> lerLeitores() {
         List<Leitor> lista = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        for (String[] campos : ler("Leitor", 5)) {
+        for (String[] campos : ler("Leitor", 4)) {
             try {
                 int id_leitor = Integer.parseInt(campos[0]);
                 String nome = campos[1];
-                String telefone = campos[3];
-                String cpf = campos[4];
+                String telefone = campos[2];
+                String cpf = campos[3];
                 lista.add(new Leitor(id_leitor, nome, telefone, cpf));
             } catch (Exception e) {
-                System.err.println("Erro ao ler Leitor: " + e + Arrays.toString(campos));
+                System.err.println("Erro ao ler leitor: " + e.getMessage() + Arrays.toString(campos));
             }
         }
         return lista;
@@ -140,8 +139,8 @@ public class manipuladorArquivos {
 
     public static List<Reserva> lerReservas() {
         List<Reserva> lista = new ArrayList<>();
-        SimpleDateFormat df = new SimpleDateFormat();
-        for (String[] campos : ler("Reserva", 4)) {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        for (String[] campos : ler("Reserva", 5)) {
             try {
                 int id = Integer.parseInt(campos[0]);
                 String status = campos[1];
@@ -150,7 +149,7 @@ public class manipuladorArquivos {
                 int id_leitor = Integer.parseInt(campos[4]);
                 lista.add(new Reserva(id, status, data_retirada, id_livro, id_leitor));
             } catch (Exception e) {
-                System.err.println("Erro ao ler médico: " + Arrays.toString(campos));
+                System.err.println("Erro ao ler reserva: " + e.getMessage() + Arrays.toString(campos));
             }
         }
         return lista;
@@ -158,16 +157,16 @@ public class manipuladorArquivos {
 
     public static List<Livro> lerLivros() {
         List<Livro> lista = new ArrayList<>();
-        for (String[] campos : ler("Livro", 4)) {
+        for (String[] campos : ler("Livro", 5)) {
             try {
                 int id = Integer.parseInt(campos[0]);
                 String titulo = campos[1];
                 String autor = campos[2];
                 String genero = campos[3];
-                String status = campos[3];
+                String status = campos[4];
                 lista.add(new Livro(id, titulo, autor, genero, status));
             } catch (Exception e) {
-                System.err.println("Erro ao ler clínica: " + Arrays.toString(campos));
+                System.err.println("Erro ao ler livro: " + e.getMessage() + Arrays.toString(campos));
             }
         }
         return lista;
@@ -175,7 +174,7 @@ public class manipuladorArquivos {
 
     public static List<Secretaria> lerSecretarias() {
         List<Secretaria> lista = new ArrayList<>();
-        for (String[] campos : ler("Secretaria", 3)) {
+        for (String[] campos : ler("Secretaria", 5)) {
             try {
                 int id = Integer.parseInt(campos[0]);
                 String nome = campos[1];
@@ -184,7 +183,7 @@ public class manipuladorArquivos {
                 String email = campos[4];
                 lista.add(new Secretaria(id, nome, cargo, telefone, email));
             } catch (Exception e) {
-                System.err.println("Erro ao ler secretaria: " + Arrays.toString(campos));
+                System.err.println("Erro ao ler secretaria: " + e.getMessage() + Arrays.toString(campos));
             }
         }
         return lista;
@@ -193,7 +192,7 @@ public class manipuladorArquivos {
     public static List<Emprestimo> lerEmprestimos() {
         List<Emprestimo> lista = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        for (String[] campos : ler("Emprestimo", 6)) {
+        for (String[] campos : ler("Emprestimo", 5)) {
             try {
                 int id = Integer.parseInt(campos[0]);
                 Date data_devolucao = sdf.parse(campos[1]);
@@ -202,7 +201,7 @@ public class manipuladorArquivos {
                 int id_leitor = Integer.parseInt(campos[4]);
                 lista.add(new Emprestimo(id, data_devolucao, idlivro, id_secretaria, id_leitor));
             } catch (Exception e) {
-                System.err.println("Erro ao ler Emprestimo: " + Arrays.toString(campos));
+                System.err.println("Erro ao ler emprestimo: " + e.getMessage() + Arrays.toString(campos));
             }
         }
         return lista;
