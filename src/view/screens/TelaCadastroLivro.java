@@ -1,14 +1,14 @@
-package visao.telas;
+package view.screens;
 
-import controle.ClinicaControle;
+import controle.LivroControle;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaCadastroClinica extends JFrame {
+public class TelaCadastroLivro extends JFrame {
 
-    public TelaCadastroClinica() {
-        setTitle("Cadastro de Clínica");
+    public TelaCadastroLivro() {
+        setTitle("Cadastro de Livro");
         setSize(400, 250);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -16,35 +16,46 @@ public class TelaCadastroClinica extends JFrame {
         JPanel painel = new JPanel(new GridLayout(5, 2, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Margem
 
-        JLabel lblNome = new JLabel("Nome:");
-        JTextField txtNome = new JTextField();
+        JLabel lblId = new JLabel("ID(nome):");
+        JTextField txtId = new JTextField();
 
-        JLabel lblEndereco = new JLabel("Endereço:");
-        JTextField txtEndereco = new JTextField();
+        JLabel lblTitulo = new JLabel("Título:");
+        JTextField txtTitulo = new JTextField();
 
-        JLabel lblTelefone = new JLabel("Telefone:");
-        JTextField txtTelefone = new JTextField();
+        JLabel lblAutor = new JLabel("Autor:");
+        JTextField txtAutor = new JTextField();
+
+        JLabel lblGenero = new JLabel("Gênero:");
+        JTextField txtGenero = new JTextField();
+
+        JLabel lblStatus = new JLabel("Status:");
+        JTextField txtStatus = new JTextField();
 
         JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.addActionListener(e ->
-            ClinicaControle.cadastrarClinica(
-                txtNome.getText().trim(),
-                txtEndereco.getText().trim(),
-                txtTelefone.getText().trim(),
-                this
-            )
-        );
+        btnSalvar.addActionListener(e -> LivroControle.cadastrarLivro(
+                txtId.getText().trim(),
+                txtTitulo.getText().trim(),
+                txtAutor.getText().trim(),
+                this));
 
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
             dispose();
-            new visao.menus.MenuClinica();
+            new view.menus.MenuBiblioteca();
         });
 
-        painel.add(lblNome); painel.add(txtNome);
-        painel.add(lblEndereco); painel.add(txtEndereco);
-        painel.add(lblTelefone); painel.add(txtTelefone);
-        painel.add(btnVoltar); painel.add(btnSalvar);
+        painel.add(lblId);
+        painel.add(txtId);
+        painel.add(lblTitulo);
+        painel.add(txtTitulo);
+        painel.add(lblAutor);
+        painel.add(txtAutor);
+        painel.add(lblGenero);
+        painel.add(txtGenero);
+        painel.add(lblStatus);
+        painel.add(txtStatus);
+        painel.add(btnVoltar);
+        painel.add(btnSalvar);
 
         add(painel);
         setVisible(true);

@@ -1,17 +1,17 @@
-package visao.menus;
+package view.menus;
 
 import javax.swing.*;
 
-import visao.telas.TelaCadastroClinica;
-import visao.telas.TelaCadastroMedico;
-import visao.telas.TelaCadastroSecretaria;
+import view.screens.TelaCadastroLivro;
+import view.screens.TelaCadastroLeitor;
+import view.screens.TelaCadastroSecretaria;
 
 import java.awt.*;
 
-public class MenuClinica extends JFrame {
+public class MenuBiblioteca extends JFrame {
 
-    public MenuClinica() {
-        setTitle("Menu Clínica");
+    public MenuBiblioteca() {
+        setTitle("Menu Biblioteca");
         setSize(400, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -19,16 +19,16 @@ public class MenuClinica extends JFrame {
         JPanel painel = new JPanel(new GridLayout(5, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton btnClinica = new JButton("Cadastrar/Atualizar Clínica");
-        btnClinica.addActionListener(e -> {
+        JButton btnLivro = new JButton("Cadastrar/Atualizar Livro");
+        btnLivro.addActionListener(e -> {
             dispose();
-            new TelaCadastroClinica();
+            new TelaCadastroLivro();
         });
 
-        JButton btnCadastrarMedico = new JButton("Cadastrar Médico");
-        btnCadastrarMedico.addActionListener(e -> {
+        JButton btnCadastrarLeitor = new JButton("Cadastrar Leitor");
+        btnCadastrarLeitor.addActionListener(e -> {
             dispose();
-            new TelaCadastroMedico();
+            new TelaCadastroLeitor();
         });
 
         JButton btnSecretaria = new JButton("Cadastrar Secretaria");
@@ -40,10 +40,10 @@ public class MenuClinica extends JFrame {
         JButton btnSair = new JButton("Sair");
         btnSair.addActionListener(e -> {
             dispose();
-            new MenuInicial(); 
+            new MenuInicial();
         });
-        painel.add(btnClinica);
-        painel.add(btnCadastrarMedico);
+        painel.add(btnLivro);
+        painel.add(btnCadastrarLeitor);
         painel.add(btnSecretaria);
 
         painel.add(btnSair);

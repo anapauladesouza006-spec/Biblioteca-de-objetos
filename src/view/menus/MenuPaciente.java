@@ -9,7 +9,7 @@ public class MenuPaciente extends JFrame {
     public MenuPaciente(int idPaciente) {
         this.idPaciente = idPaciente;
 
-        setTitle("Menu Paciente - "+this.idPaciente);
+        setTitle("Menu Paciente - " + this.idPaciente);
         setSize(400, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -26,7 +26,7 @@ public class MenuPaciente extends JFrame {
         JButton btnSair = new JButton("Sair");
         btnSair.addActionListener(e -> {
             dispose();
-            new MenuInicial(); 
+            new MenuInicial();
         });
 
         painel.add(btnAtualizar);
