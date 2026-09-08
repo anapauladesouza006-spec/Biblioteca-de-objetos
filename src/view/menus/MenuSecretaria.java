@@ -1,19 +1,19 @@
-package visao.menus;
+package view.menus;
 
 import javax.swing.*;
 
-import visao.telas.TelaAgendamentoConsulta;
-import visao.telas.TelaCadastroPaciente;
+import view.screens.TelaAgendamentoConsulta;
+import view.screens.TelaCadastroLeitor;
 
 
 import java.awt.*;
 
 public class MenuSecretaria extends JFrame {
-    private int idSecretaria;
+    private int id_secretaria;
 
-    public MenuSecretaria(int idSecretaria) {
-        this.idSecretaria = idSecretaria;
-        setTitle("Menu - Secretaria: "+this.idSecretaria);
+    public MenuSecretaria(int id_secretaria) {
+        this.id_secretaria = id_secretaria;
+        setTitle("Menu - Secretaria: "+this.id_secretaria);
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -21,22 +21,22 @@ public class MenuSecretaria extends JFrame {
         JPanel painel = new JPanel(new GridLayout(5, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton btnCadastro = new JButton("Cadastrar Paciente");
+        JButton btnCadastro = new JButton("Cadastrar Leitor");
         btnCadastro.addActionListener(e -> {
             dispose(); // Fecha o menu
-            new TelaCadastroPaciente(idSecretaria);
+            new TelaCadastroLeitor(id_secretaria);
         });
 
-        JButton btnAtualizar = new JButton("Atualizar Contato do Paciente");
+        JButton btnAtualizar = new JButton("Atualizar Contato do Leitor");
 
 
-        JButton btnAgendar = new JButton("Agendar Consulta");
-        btnAgendar.addActionListener(e -> {
+        JButton btnCadastrarLeitor = new JButton("Cadastrar Leitor");
+        btnCadastrarLeitor.addActionListener(e -> {
             dispose(); // Fecha o menu
-            new TelaAgendamentoConsulta(this.idSecretaria);
+            new TelaReserva(this.id_secretaria);
         });
 
-        JButton btnListarAgendamentos = new JButton("Lista de Agendamentos");
+        JButton btnListarReserva = new JButton("Lista de Reservas");
 
         JButton btnSair = new JButton("Sair");
         btnSair.addActionListener(e -> {
@@ -46,8 +46,8 @@ public class MenuSecretaria extends JFrame {
 
         painel.add(btnCadastro);
         painel.add(btnAtualizar);
-        painel.add(btnAgendar);
-        painel.add(btnListarAgendamentos);
+        painel.add(btnReservar);
+        painel.add(btnListarReserva);
         painel.add(btnSair);
 
         add(painel);

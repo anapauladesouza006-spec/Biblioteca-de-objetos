@@ -1,16 +1,16 @@
-package visao.menus;
+package view.menus;
 
 import javax.swing.*;
 
 import java.awt.*;
 
-public class MenuMedico extends JFrame {
-    private int idMedico;
+public class MenuLeitor extends JFrame {
+    private int id_leitor;
 
-    public MenuMedico(int idMedico) {
-        this.idMedico = idMedico;
+    public MenuLeitor(int id_leitor) {
+        this.id_leitor = id_leitor;
 
-        setTitle("Menu Médico - "+this.idMedico);
+        setTitle("Menu Leitor - "+this.id_leitor);
         setSize(400, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -18,9 +18,9 @@ public class MenuMedico extends JFrame {
         JPanel painel = new JPanel(new GridLayout(3, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton btnAgendamentos = new JButton("Agendamentos");
+        JButton btnReserva = new JButton("Reservas");
 
-        JButton btnRegistrar = new JButton("Atualizar Agendamento");
+        JButton btnReservar = new JButton("Atualizar reserva");
 
         JButton btnSair = new JButton("Sair");
         btnSair.addActionListener(e -> {
@@ -28,8 +28,8 @@ public class MenuMedico extends JFrame {
             new MenuInicial(); 
         });
 
-        painel.add(btnRegistrar);
-        painel.add(btnAgendamentos);
+        painel.add(btnReserva);
+        painel.add(btnReservar);
         painel.add(btnSair);
 
         add(painel);

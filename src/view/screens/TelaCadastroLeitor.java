@@ -1,13 +1,14 @@
-package visao.telas;
+package view.screens;
 
-import controle.PacienteControle;
+import controle.LeitorControle;
+import modelo.Leitor;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaCadastroPaciente extends JFrame {
+public class TelaCadastroLeitor extends JFrame {
 
-    public TelaCadastroPaciente(int idSecretaria) {
+    public TelaCadastroLeitor(int id_secretaria) {
         setTitle("Cadastro de Paciente");
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,20 +31,20 @@ public class TelaCadastroPaciente extends JFrame {
 
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.addActionListener(e -> 
-            PacienteControle.cadastrarPaciente(
+            LeitorControle.cadastrarLeitor(
                 txtNome.getText().trim(),
                 txtDataNascimento.getText().trim(),
                 txtTelefone.getText().trim(),
                 txtEmail.getText().trim(),
                 this,
-                idSecretaria
+                id_secretaria
             )
         );
 
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
             dispose();
-            new visao.menus.MenuSecretaria(idSecretaria); 
+            new view.menus.MenuSecretaria(id_secretaria); 
         });
 
         painel.add(lblNome); painel.add(txtNome);
