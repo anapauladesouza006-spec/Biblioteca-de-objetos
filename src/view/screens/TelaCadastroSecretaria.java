@@ -1,4 +1,4 @@
-package visao.telas;
+package view.screens;
 
 import controle.SecretariaControle;
 
@@ -19,14 +19,22 @@ public class TelaCadastroSecretaria extends JFrame {
         JLabel lblNome = new JLabel("Nome:");
         JTextField txtNome = new JTextField();
 
-        JLabel lblTurno = new JLabel("Turno:");
-        JTextField txtTurno = new JTextField();
+        JLabel lblCargo = new JLabel("Cargo:");
+        JTextField txtCargo = new JTextField();
+
+        JLabel lblTelefone = new JLabel("Telefone:");
+        JTextField txtTelefone = new JTextField();
+
+        JLabel lblEmail = new JLabel("Email:");
+        JTextField txtEmail = new JTextField();
 
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.addActionListener(e ->
             SecretariaControle.cadastrarSecretaria(
                 txtNome.getText().trim(),
-                txtTurno.getText().trim(),
+                txtCargo.getText().trim(),
+                txtTelefone.getText().trim(),
+                txtEmail.getText().trim(),
                 this
             )
         );
@@ -34,11 +42,13 @@ public class TelaCadastroSecretaria extends JFrame {
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
             dispose();
-            new visao.menus.MenuClinica();
+            new view.menus.MenuBiblioteca();
         });
 
         painel.add(lblNome); painel.add(txtNome);
-        painel.add(lblTurno); painel.add(txtTurno);
+        painel.add(lblCargo); painel.add(txtCargo);
+        painel.add(lblTelefone); painel.add(txtTelefone);
+        painel.add(lblEmail); painel.add(txtEmail);
         painel.add(btnVoltar); painel.add(btnSalvar);
 
         add(painel);

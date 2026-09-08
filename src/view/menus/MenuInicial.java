@@ -1,9 +1,9 @@
-package visao.menus;
+package view.menus;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import util.ManipuladorArquivos;
+import util.manipuladorArquivos;
 
 public class MenuInicial extends JFrame {
 
@@ -13,7 +13,7 @@ public class MenuInicial extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        String[] perfis = {"Clínica", "Médico", "Secretaria", "Paciente"};
+        String[] perfis = {"Leitor", "Secretaria"};
 
         JPanel painel = new JPanel(new GridLayout(4, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -26,8 +26,8 @@ public class MenuInicial extends JFrame {
             String perfilSelecionado = (String) comboPerfil.getSelectedItem();
             dispose();
 
-            if ("Clínica".equals(perfilSelecionado)) {
-                new MenuClinica();
+            if ("Leitor".equals(perfilSelecionado)) {
+                new MenuLeitor();
             } else {
                 selecionarUsuario(perfilSelecionado);
             }
@@ -46,10 +46,8 @@ public class MenuInicial extends JFrame {
 
     private void selecionarUsuario(String perfil) {
         String arquivo = switch (perfil) {
-            case "Clínica" -> "Clinica";
-            case "Médico" -> "Medico";
+            case "Leitor" -> "Leitor";
             case "Secretaria" -> "Secretaria";
-            case "Paciente" -> "Paciente";
             default -> null;
         };
 
@@ -59,7 +57,7 @@ public class MenuInicial extends JFrame {
             return;
         }
 
-        List<String[]> registros = ManipuladorArquivos.ler(arquivo, getCamposEsperados(arquivo));
+        List<String[]> registros = manipuladorArquivos.ler(arquivo, getCamposEsperados(arquivo));
         if (registros.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nenhum registro encontrado para " + perfil + ".");
             new MenuInicial();
@@ -87,19 +85,15 @@ public class MenuInicial extends JFrame {
 
         int id = Integer.parseInt(escolha.split("ID: ")[1].replace(")", ""));
         switch (perfil) {
-            case "Clínica" -> new MenuClinica();
-            case "Médico" -> new MenuMedico(id);
+            case "Leitor" -> new MenuLeitor();
             case "Secretaria" -> new MenuSecretaria(id);
-            case "Paciente" -> new MenuPaciente(id);
         }
     }
 
     private int getCamposEsperados(String nomeClasse) {
         return switch (nomeClasse) {
-            case "Paciente" -> 5;
-            case "Medico" -> 4;
-            case "Secretaria" -> 3;
-            case "Clinica" -> 4;
+            case "Leitor" -> 4;
+            case "Secretaria" -> 5;
             default -> 0;
         };
     }
