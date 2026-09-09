@@ -40,7 +40,7 @@ public class TelaCadastroLivro extends JFrame {
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
             dispose();
-            new view.menus.MenuBiblioteca();
+            new view.menus.MenuInicial();
         });
 
         painel.add(lblTitulo);

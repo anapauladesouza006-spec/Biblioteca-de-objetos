@@ -58,25 +58,22 @@ public class Secretaria {
     }
 
     public void cadastrarLeitor(Leitor leitor) {
-        manipuladorArquivos.atualizarObjeto("Leitor", manipuladorArquivos.proximoId("Leitor"),leitor, 4);
+        manipuladorArquivos.salvarObjeto("Leitor", leitor, 4);
     }
 
     public void cadastrarLivro(Livro livro) {
-        manipuladorArquivos.atualizarObjeto("Livro", manipuladorArquivos.proximoId("Livro"),livro, 5);
-
+        manipuladorArquivos.salvarObjeto("Livro", livro, 5);
     }
 
     public void cadastrarEmprestimo(Emprestimo emprestimo) {
-        manipuladorArquivos.atualizarObjeto("Emprestimo", manipuladorArquivos.proximoId("Emprestimo"),emprestimo, 5);
-
+        manipuladorArquivos.salvarObjeto("Emprestimo", emprestimo, 5);
     }
 
     public void cadastrarBiblioteca(Biblioteca biblioteca) {
-        manipuladorArquivos.atualizarObjeto("Biblioteca", manipuladorArquivos.proximoId("Biblioteca"),biblioteca, 4);
-
+        manipuladorArquivos.salvarObjeto("Biblioteca", biblioteca, 4);
     }
 
-    public String toCSV(){
+    public String toCSV() {
         return String.join(";", String.valueOf(id_secretaria), nome, cargo, telefone, email);
     }
 

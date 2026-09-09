@@ -29,27 +29,29 @@ public class TelaCadastroSecretaria extends JFrame {
         JTextField txtEmail = new JTextField();
 
         JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.addActionListener(e ->
-            SecretariaControle.cadastrarSecretaria(
+        btnSalvar.addActionListener(e -> SecretariaControle.cadastrarSecretaria(
                 txtNome.getText().trim(),
                 txtCargo.getText().trim(),
                 txtTelefone.getText().trim(),
                 txtEmail.getText().trim(),
-                this
-            )
-        );
+                this));
 
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
             dispose();
-            new view.menus.MenuBiblioteca();
+            new view.menus.MenuInicial();
         });
 
-        painel.add(lblNome); painel.add(txtNome);
-        painel.add(lblCargo); painel.add(txtCargo);
-        painel.add(lblTelefone); painel.add(txtTelefone);
-        painel.add(lblEmail); painel.add(txtEmail);
-        painel.add(btnVoltar); painel.add(btnSalvar);
+        painel.add(lblNome);
+        painel.add(txtNome);
+        painel.add(lblCargo);
+        painel.add(txtCargo);
+        painel.add(lblTelefone);
+        painel.add(txtTelefone);
+        painel.add(lblEmail);
+        painel.add(txtEmail);
+        painel.add(btnVoltar);
+        painel.add(btnSalvar);
 
         add(painel);
         setVisible(true);
