@@ -26,19 +26,17 @@ public class MenuSecretaria extends JFrame {
             new TelaCadastroSecretaria();
         });
 
-        JButton btnAtualizar = new JButton("Atualizar Contato do Leitor");
+        JButton btnCadastroLivro = new JButton("Cadastrar Livro");
+        btnCadastroLivro.addActionListener(e -> {
+            dispose();
+            new TelaCadastroLivro(this.id_secretaria);
+        });
 
 
         JButton btnCadastrarLeitor = new JButton("Cadastrar Leitor");
         btnCadastrarLeitor.addActionListener(e -> {
             dispose(); // Fecha o menu
             new TelaCadastroLeitor(this.id_secretaria);
-        });
-
-        JButton btnCadastrarLivro = new JButton("Cadastrar Livro");
-        btnCadastrarLivro.addActionListener(e -> {
-            dispose(); // Fecha o menu
-            new TelaCadastroLivro(this.id_secretaria);
         });
 
         JButton btnReservar = new JButton("Realizar Reserva");
@@ -57,7 +55,7 @@ public class MenuSecretaria extends JFrame {
 
         painel.add(btnCadastroSecretaria);
         painel.add(btnCadastrarLeitor);
-        painel.add(btnAtualizar);
+        painel.add(btnCadastroLivro);
         painel.add(btnReservar);
         painel.add(btnListarReserva);
         painel.add(btnSair);

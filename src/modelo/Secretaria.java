@@ -1,5 +1,7 @@
 package modelo;
 
+import util.manipuladorArquivos;
+
 public class Secretaria {
     private int id_secretaria;
     private String nome;
@@ -13,18 +15,6 @@ public class Secretaria {
         this.cargo = cargo;
         this.telefone = telefone;
         this.email = email;
-    }
-
-    public void cadastrarLeitor(Leitor leitor) {
-
-    }
-
-    public void cadastrarLivro(Livro livro) {
-
-    }
-
-    public void cadastrarEmprestimo(Emprestimo emprestimo) {
-
     }
 
     public int getId_secretaria() {
@@ -65,6 +55,25 @@ public class Secretaria {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void cadastrarLeitor(Leitor leitor) {
+        manipuladorArquivos.atualizarObjeto("Leitor", manipuladorArquivos.proximoId("Leitor"),leitor, 4);
+    }
+
+    public void cadastrarLivro(Livro livro) {
+        manipuladorArquivos.atualizarObjeto("Livro", manipuladorArquivos.proximoId("Livro"),livro, 5);
+
+    }
+
+    public void cadastrarEmprestimo(Emprestimo emprestimo) {
+        manipuladorArquivos.atualizarObjeto("Emprestimo", manipuladorArquivos.proximoId("Emprestimo"),emprestimo, 5);
+
+    }
+
+    public void cadastrarBiblioteca(Biblioteca biblioteca) {
+        manipuladorArquivos.atualizarObjeto("Biblioteca", manipuladorArquivos.proximoId("Biblioteca"),biblioteca, 4);
+
     }
 
     public String toCSV(){

@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class manipuladorArquivos {
-    private static final String DIRETORIO = "src/dados";
+    private static final String DIRETORIO = "src\\dados";
 
     public static void salvarObjeto(String nomeClasse, Object objeto, int camposEsperados) {
         String linhaCSV = "";
@@ -55,6 +55,9 @@ public class manipuladorArquivos {
                 } else if (novoObjeto instanceof Emprestimo) {
                     Emprestimo e = (Emprestimo) novoObjeto;
                     novaLinha = e.toCSV();
+                }else if (novoObjeto instanceof Biblioteca) {
+                    Biblioteca b = (Biblioteca) novoObjeto;
+                    novaLinha = b.toCSV();
                 }
                 lista.set(i, novaLinha.split(";"));
                 break;

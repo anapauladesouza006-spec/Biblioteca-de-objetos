@@ -2,9 +2,7 @@ package view.menus;
 
 import javax.swing.*;
 
-import view.screens.TelaCadastroLivro;
-import view.screens.TelaCadastroLeitor;
-import view.screens.TelaCadastroSecretaria;
+import view.screens.*;
 
 import java.awt.*;
 
@@ -37,6 +35,12 @@ public class MenuBiblioteca extends JFrame {
             new TelaCadastroSecretaria();
         });
 
+        JButton btnBiblioteca = new JButton("Cadastrar Biblioteca");
+        btnBiblioteca.addActionListener(e -> {
+            dispose();
+            new TelaCadastroBiblioteca();
+        });
+
         JButton btnSair = new JButton("Sair");
         btnSair.addActionListener(e -> {
             dispose();
@@ -45,6 +49,7 @@ public class MenuBiblioteca extends JFrame {
         /*painel.add(btnLivro);
         painel.add(btnCadastrarLeitor);*/
         painel.add(btnSecretaria);
+        painel.add(btnBiblioteca);
 
         painel.add(btnSair);
 
