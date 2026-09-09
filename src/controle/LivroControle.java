@@ -1,5 +1,8 @@
 package controle;
 
+import modelo.Livro;
+import util.manipuladorArquivos;
+
 import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,49 +10,32 @@ import java.util.Date;
 import java.util.List;
 
 public class LivroControle {
-    public static void cadastrarPaciente(String nome, String dataNascimentoStr, String telefone, String email, JFrame tela, int idSecretaria){
-        if(nome.isEmpty() || dataNascimentoStr.isEmpty() || telefone.isEmpty() || email.isEmpty()){
+    public static void cadastrarLivro(String titulo, String autor, String genero, String status, JFrame tela, int idSecretaria){
+        if(titulo.isEmpty() || autor.isEmpty() || genero.isEmpty() || status.isEmpty()){
             JOptionPane.showMessageDialog(tela, "Preencha todos os campos");
             return;
         }
 
-        if(!email.contains("@")){
-            JOptionPane.showMessageDialog(tela, "E-mail inválido!");
-        }
+        int id = manipuladorArquivos.proximoId("Livro");
+        Livro l = new Livro(id, titulo, autor, genero, status);
+        SecretariaControle.obterSecretaria(idSecretaria).cadastrarLivro(l);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataNascimento;
-        try{
-            dataNascimento = sdf.parse(dataNascimentoStr);
-            if(dataNascimento.after(new Date())){
-                JOptionPane.showMessageDialog(tela, "Data de nascimento futura informada!");
-                return;
-            }
-        } catch(ParseException err){
-            JOptionPane.showMessageDialog(tela, "Data inválida! Use dd/MM/yyyy");
-            return;
-        }
-
-        int id = ManipuladorArquivos.proximoId("Paciente");
-        Paciente p = new Paciente(id, nome, dataNascimento, telefone, email);
-        SecretariaControle.obterSecretaria(idSecretaria).cadastrarPaciente(p);
-
-        JOptionPane.showMessageDialog(tela, "Paciente cadastrado com sucesso!");
+        JOptionPane.showMessageDialog(tela, "Livro cadastrado com sucesso!");
         tela.dispose();
 
         new view.menus.MenuSecretaria(idSecretaria);
 
         JOptionPane.showMessageDialog(null, "Secretaria cadastrada com sucesso!");
         tela.dispose();
-        new view.menus.MenuClinica();
+        new view.menus.MenuBiblioteca();
     }
 
-    public static Paciente obterPaciente(int idPaciente){
-        List<Paciente> pacientes = ManipuladorArquivos.lerPacientes();
-        Paciente paciente = pacientes.stream()
-                .filter(p -> p.getIdPaciente() == idPaciente)
+    public static Livro obterLivro(int idLivro){
+        List<Livro> livros = manipuladorArquivos.lerLivros();
+        Livro livro = livros.stream()
+                .filter(l -> l.getId_livro() == idLivro)
                 .findFirst()
                 .orElse(null);
-        return paciente;
+        return livro;
     }
     }

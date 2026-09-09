@@ -20,7 +20,7 @@ import view.menus.MenuReserva;
 
 public class TelaReserva extends JFrame {
    public TelaReserva(int var1) {
-      this.setTitle("Realizar Reserva");
+      /*this.setTitle("Realizar Reserva");
       this.setSize(400, 300);
       this.setDefaultCloseOperation(3);
       this.setLocationRelativeTo((Component)null);
@@ -64,6 +64,6 @@ public class TelaReserva extends JFrame {
       var8.add(var10);
       var8.add(var9);
       this.add(var8);
-      this.setVisible(true);
+      this.setVisible(true);*/
    }
 }

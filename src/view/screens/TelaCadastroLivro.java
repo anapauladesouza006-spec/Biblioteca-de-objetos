@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class TelaCadastroLivro extends JFrame {
 
-    public TelaCadastroLivro() {
+    public TelaCadastroLivro(int idSecretaria) {
         setTitle("Cadastro de Livro");
         setSize(400, 250);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -15,9 +15,6 @@ public class TelaCadastroLivro extends JFrame {
 
         JPanel painel = new JPanel(new GridLayout(5, 2, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Margem
-
-        JLabel lblId = new JLabel("ID(nome):");
-        JTextField txtId = new JTextField();
 
         JLabel lblTitulo = new JLabel("Título:");
         JTextField txtTitulo = new JTextField();
@@ -33,10 +30,12 @@ public class TelaCadastroLivro extends JFrame {
 
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.addActionListener(e -> LivroControle.cadastrarLivro(
-                txtId.getText().trim(),
                 txtTitulo.getText().trim(),
                 txtAutor.getText().trim(),
-                this));
+                txtGenero.getText().trim(),
+                txtStatus.getText().trim(),
+                this,
+                idSecretaria));
 
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
@@ -44,8 +43,6 @@ public class TelaCadastroLivro extends JFrame {
             new view.menus.MenuBiblioteca();
         });
 
-        painel.add(lblId);
-        painel.add(txtId);
         painel.add(lblTitulo);
         painel.add(txtTitulo);
         painel.add(lblAutor);

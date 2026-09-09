@@ -30,7 +30,7 @@ public class TelaSelecionarPerfil {
             default -> 0;
         };
 
-        List<String[]> dados = util.ManipuladorArquivos.ler(nomeArquivo, campos);
+        List<String[]> dados = util.manipuladorArquivos.ler(nomeArquivo, campos);
         if (dados.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nenhum registro encontrado para " + tipo);
             System.exit(0);

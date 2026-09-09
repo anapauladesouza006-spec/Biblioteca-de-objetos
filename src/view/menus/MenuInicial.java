@@ -13,7 +13,7 @@ public class MenuInicial extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        String[] perfis = {"Leitor", "Secretaria"};
+        String[] perfis = {"Leitor", "Secretaria", "Biblioteca"};
 
         JPanel painel = new JPanel(new GridLayout(4, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -26,8 +26,8 @@ public class MenuInicial extends JFrame {
             String perfilSelecionado = (String) comboPerfil.getSelectedItem();
             dispose();
 
-            if ("Leitor".equals(perfilSelecionado)) {
-                new MenuLeitor();
+            if ("Biblioteca".equals(perfilSelecionado)) {
+                new MenuBiblioteca();
             } else {
                 selecionarUsuario(perfilSelecionado);
             }
@@ -85,7 +85,7 @@ public class MenuInicial extends JFrame {
 
         int id = Integer.parseInt(escolha.split("ID: ")[1].replace(")", ""));
         switch (perfil) {
-            case "Leitor" -> new MenuLeitor();
+            case "Leitor" -> new MenuLeitor(id);
             case "Secretaria" -> new MenuSecretaria(id);
         }
     }

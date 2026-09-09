@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class manipuladorArquivos {
-    private static final String DIRETORIO = "src\\dados";
+    private static final String DIRETORIO = "src/dados";
 
     public static void salvarObjeto(String nomeClasse, Object objeto, int camposEsperados) {
         String linhaCSV = "";
@@ -210,6 +210,22 @@ public class manipuladorArquivos {
                 lista.add(new Emprestimo(id, data_devolucao, idlivro, id_secretaria, id_leitor));
             } catch (Exception e) {
                 System.err.println("Erro ao ler emprestimo: " + e.getMessage() + Arrays.toString(campos));
+            }
+        }
+        return lista;
+    }
+
+    public static List<Biblioteca> lerBibliotecas() {
+        List<Biblioteca> lista = new ArrayList<>();
+        for (String[] campos : ler("Biblioteca", 4)) {
+            try {
+                int id = Integer.parseInt(campos[0]);
+                String nome = campos[1];
+                String endereco = campos[2];
+                String telefone = campos[3];
+                lista.add(new Biblioteca(id, nome, endereco, telefone));
+            } catch (Exception e) {
+                System.err.println("Erro ao ler Biblioteca: " + e.getMessage() + Arrays.toString(campos));
             }
         }
         return lista;

@@ -2,8 +2,7 @@ package view.menus;
 
 import javax.swing.*;
 
-import view.screens.TelaAgendamentoConsulta;
-import view.screens.TelaCadastroLeitor;
+import view.screens.*;
 
 
 import java.awt.*;
@@ -21,10 +20,10 @@ public class MenuSecretaria extends JFrame {
         JPanel painel = new JPanel(new GridLayout(5, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton btnCadastro = new JButton("Cadastrar Leitor");
-        btnCadastro.addActionListener(e -> {
+        JButton btnCadastroSecretaria = new JButton("Cadastrar Secretaria");
+        btnCadastroSecretaria.addActionListener(e -> {
             dispose(); // Fecha o menu
-            new TelaCadastroLeitor(id_secretaria);
+            new TelaCadastroSecretaria();
         });
 
         JButton btnAtualizar = new JButton("Atualizar Contato do Leitor");
@@ -32,6 +31,18 @@ public class MenuSecretaria extends JFrame {
 
         JButton btnCadastrarLeitor = new JButton("Cadastrar Leitor");
         btnCadastrarLeitor.addActionListener(e -> {
+            dispose(); // Fecha o menu
+            new TelaCadastroLeitor(this.id_secretaria);
+        });
+
+        JButton btnCadastrarLivro = new JButton("Cadastrar Livro");
+        btnCadastrarLivro.addActionListener(e -> {
+            dispose(); // Fecha o menu
+            new TelaCadastroLivro(this.id_secretaria);
+        });
+
+        JButton btnReservar = new JButton("Realizar Reserva");
+        btnReservar.addActionListener(e -> {
             dispose(); // Fecha o menu
             new TelaReserva(this.id_secretaria);
         });
@@ -44,7 +55,8 @@ public class MenuSecretaria extends JFrame {
             new MenuInicial();
         });
 
-        painel.add(btnCadastro);
+        painel.add(btnCadastroSecretaria);
+        painel.add(btnCadastrarLeitor);
         painel.add(btnAtualizar);
         painel.add(btnReservar);
         painel.add(btnListarReserva);

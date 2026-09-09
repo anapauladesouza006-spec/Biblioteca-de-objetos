@@ -23,6 +23,10 @@ public class Secretaria {
 
     }
 
+    public void cadastrarEmprestimo(Emprestimo emprestimo) {
+
+    }
+
     public int getId_secretaria() {
         return id_secretaria;
     }

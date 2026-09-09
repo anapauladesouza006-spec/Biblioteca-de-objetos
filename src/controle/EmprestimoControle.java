@@ -1,5 +1,8 @@
 package controle;
 
+import modelo.Emprestimo;
+import util.manipuladorArquivos;
+
 import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,22 +10,18 @@ import java.util.Date;
 import java.util.List;
 
 public class EmprestimoControle {
-    public static void cadastrarPaciente(String nome, String dataNascimentoStr, String telefone, String email, JFrame tela, int idSecretaria){
-        if(nome.isEmpty() || dataNascimentoStr.isEmpty() || telefone.isEmpty() || email.isEmpty()){
+    public static void cadastrarEmprestimo(String data_devolucao_str, int id_livro, int id_secretaria, int id_leitor, JFrame tela, int idSecretaria){
+        if(data_devolucao_str.isEmpty() || id_livro == 0 || id_secretaria == 0 || id_leitor == 0){
             JOptionPane.showMessageDialog(tela, "Preencha todos os campos");
             return;
         }
 
-        if(!email.contains("@")){
-            JOptionPane.showMessageDialog(tela, "E-mail inválido!");
-        }
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataNascimento;
+        Date dataDevolucao;
         try{
-            dataNascimento = sdf.parse(dataNascimentoStr);
-            if(dataNascimento.after(new Date())){
-                JOptionPane.showMessageDialog(tela, "Data de nascimento futura informada!");
+            dataDevolucao = sdf.parse(data_devolucao_str);
+            if(dataDevolucao.before(new Date())){
+                JOptionPane.showMessageDialog(tela, "Data de devolução antiga informada!");
                 return;
             }
         } catch(ParseException err){
@@ -30,9 +29,9 @@ public class EmprestimoControle {
             return;
         }
 
-        int id = ManipuladorArquivos.proximoId("Paciente");
-        Paciente p = new Paciente(id, nome, dataNascimento, telefone, email);
-        SecretariaControle.obterSecretaria(idSecretaria).cadastrarPaciente(p);
+        int id = manipuladorArquivos.proximoId("Emprestimo");
+        Emprestimo e = new Emprestimo(id, dataDevolucao, id_livro, id_secretaria, id_leitor);
+        SecretariaControle.obterSecretaria(idSecretaria).cadastrarEmprestimo(e);
 
         JOptionPane.showMessageDialog(tela, "Paciente cadastrado com sucesso!");
         tela.dispose();
@@ -41,15 +40,15 @@ public class EmprestimoControle {
 
         JOptionPane.showMessageDialog(null, "Secretaria cadastrada com sucesso!");
         tela.dispose();
-        new view.menus.MenuClinica();
+        new view.menus.MenuBiblioteca();
     }
 
-    public static Paciente obterPaciente(int idPaciente){
-        List<Paciente> pacientes = ManipuladorArquivos.lerPacientes();
-        Paciente paciente = pacientes.stream()
-                .filter(p -> p.getIdPaciente() == idPaciente)
+    public static Emprestimo obterEmprestimo(int idEmprestimo){
+        List<Emprestimo> emprestimos = manipuladorArquivos.lerEmprestimos();
+        Emprestimo emprestimo = emprestimos.stream()
+                .filter(e -> e.getId_emprestimo() == idEmprestimo)
                 .findFirst()
                 .orElse(null);
-        return paciente;
+        return emprestimo;
     }
 }

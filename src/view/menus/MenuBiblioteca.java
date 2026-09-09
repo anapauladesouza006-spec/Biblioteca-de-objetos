@@ -19,7 +19,7 @@ public class MenuBiblioteca extends JFrame {
         JPanel painel = new JPanel(new GridLayout(5, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton btnLivro = new JButton("Cadastrar/Atualizar Livro");
+        /*JButton btnLivro = new JButton("Cadastrar/Atualizar Livro");
         btnLivro.addActionListener(e -> {
             dispose();
             new TelaCadastroLivro();
@@ -29,7 +29,7 @@ public class MenuBiblioteca extends JFrame {
         btnCadastrarLeitor.addActionListener(e -> {
             dispose();
             new TelaCadastroLeitor();
-        });
+        });*/
 
         JButton btnSecretaria = new JButton("Cadastrar Secretaria");
         btnSecretaria.addActionListener(e -> {
@@ -42,8 +42,8 @@ public class MenuBiblioteca extends JFrame {
             dispose();
             new MenuInicial();
         });
-        painel.add(btnLivro);
-        painel.add(btnCadastrarLeitor);
+        /*painel.add(btnLivro);
+        painel.add(btnCadastrarLeitor);*/
         painel.add(btnSecretaria);
 
         painel.add(btnSair);

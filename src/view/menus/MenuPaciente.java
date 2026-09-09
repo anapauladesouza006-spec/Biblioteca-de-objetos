@@ -1,5 +1,7 @@
 package visao.menus;
 
+import view.menus.MenuInicial;
+
 import javax.swing.*;
 import java.awt.*;
 

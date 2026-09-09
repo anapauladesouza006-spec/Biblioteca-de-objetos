@@ -9,7 +9,7 @@ import java.awt.*;
 public class TelaCadastroLeitor extends JFrame {
 
     public TelaCadastroLeitor(int id_secretaria) {
-        setTitle("Cadastro de Paciente");
+        setTitle("Cadastro de Leitor");
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -20,22 +20,18 @@ public class TelaCadastroLeitor extends JFrame {
         JLabel lblNome = new JLabel("Nome:");
         JTextField txtNome = new JTextField();
 
-        JLabel lblDataNascimento = new JLabel("Data Nasc. (dd/MM/yyyy):");
-        JTextField txtDataNascimento = new JTextField();
-
         JLabel lblTelefone = new JLabel("Telefone:");
         JTextField txtTelefone = new JTextField();
 
-        JLabel lblEmail = new JLabel("Email:");
-        JTextField txtEmail = new JTextField();
+        JLabel lblCpf = new JLabel("Cpf:");
+        JTextField txtCpf = new JTextField();
 
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.addActionListener(e -> 
             LeitorControle.cadastrarLeitor(
                 txtNome.getText().trim(),
-                txtDataNascimento.getText().trim(),
                 txtTelefone.getText().trim(),
-                txtEmail.getText().trim(),
+                txtCpf.getText().trim(),
                 this,
                 id_secretaria
             )
@@ -48,9 +44,8 @@ public class TelaCadastroLeitor extends JFrame {
         });
 
         painel.add(lblNome); painel.add(txtNome);
-        painel.add(lblDataNascimento); painel.add(txtDataNascimento);
         painel.add(lblTelefone); painel.add(txtTelefone);
-        painel.add(lblEmail); painel.add(txtEmail);
+        painel.add(lblCpf); painel.add(txtCpf);
         painel.add(btnVoltar); painel.add(btnSalvar);
 
         add(painel);
