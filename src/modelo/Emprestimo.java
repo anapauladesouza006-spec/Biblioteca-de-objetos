@@ -6,16 +6,16 @@ import java.util.Date;
 public class Emprestimo {
     private int id_emprestimo;
     private Date data_devolucao;
-    private int id_livro;
-    private int id_secretaria;
-    private int id_leitor;
+    private Livro livro;
+    private Secretaria secretaria;
+    private Leitor leitor;
 
-    public Emprestimo(int id, Date data_devolucao, int id_livro, int id_secretaria, int id_leitor) {
+    public Emprestimo(int id, Date data_devolucao, Livro livro, Secretaria secretaria, Leitor leitor) {
         this.id_emprestimo = id;
         this.data_devolucao = data_devolucao;
-        this.id_livro = id_livro;
-        this.id_secretaria = id_secretaria;
-        this.id_leitor = id_leitor;
+        this.livro = livro;
+        this.secretaria = secretaria;
+        this.leitor = leitor;
     }
 
     public void reservar(Livro livro) {
@@ -42,28 +42,28 @@ public class Emprestimo {
         this.data_devolucao = data_devolucao;
     }
 
-    public int getId_livro() {
-        return id_livro;
+    public Livro getLivro() {
+        return livro;
     }
 
-    public void setId_livro(int id_livro) {
-        this.id_livro = id_livro;
+    public void setLivro(Livro livro) {
+        this.livro = livro;
     }
 
-    public int getId_secretaria() {
-        return id_secretaria;
+    public Secretaria getSecretaria() {
+        return secretaria;
     }
 
-    public void setId_secretaria(int id_secretaria) {
-        this.id_secretaria = id_secretaria;
+    public void setSecretaria(Secretaria secretaria) {
+        this.secretaria = secretaria; 
     }
 
-    public int getId_leitor() {
-        return id_leitor;
+    public Leitor getLeitor() {
+        return leitor;
     }
 
-    public void setId_leitor(int id_leitor) {
-        this.id_leitor = id_leitor;
+    public void setLeitor(Leitor leitor) {
+        this.leitor = leitor;
     }
 
     public String toCSV(){
@@ -74,6 +74,6 @@ public class Emprestimo {
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return id_emprestimo + " " + sdf.format(data_devolucao) + " " + id_livro + " " + id_secretaria + " " + id_leitor;
+        return id_emprestimo + " " + sdf.format(data_devolucao) + " " + livro + " " + secretaria + " " + id_leitor;
     }
 }
