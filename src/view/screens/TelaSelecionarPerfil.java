@@ -1,4 +1,4 @@
-package visao.telas;
+package view.screens;
 
 import javax.swing.*;
 import java.util.List;

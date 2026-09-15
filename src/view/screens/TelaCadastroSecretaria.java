@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class TelaCadastroSecretaria extends JFrame {
 
-    public TelaCadastroSecretaria() {
+    public TelaCadastroSecretaria(int idSecretaria) {
         setTitle("Cadastro de Secretaria");
         setSize(400, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -39,7 +39,12 @@ public class TelaCadastroSecretaria extends JFrame {
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
             dispose();
-            new view.menus.MenuInicial();
+            if(idSecretaria == 0) {
+                new view.menus.MenuBiblioteca();
+            }
+            else{
+                new view.menus.MenuSecretaria(idSecretaria);
+            }
         });
 
         painel.add(lblNome);

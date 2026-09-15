@@ -32,13 +32,13 @@ public class MenuBiblioteca extends JFrame {
         JButton btnSecretaria = new JButton("Cadastrar Secretaria");
         btnSecretaria.addActionListener(e -> {
             dispose();
-            new TelaCadastroSecretaria();
+            new TelaCadastroSecretaria(0);
         });
 
         JButton btnBiblioteca = new JButton("Cadastrar Biblioteca");
         btnBiblioteca.addActionListener(e -> {
             dispose();
-            new TelaCadastroBiblioteca();
+            new TelaCadastroBiblioteca(0);
         });
 
         JButton btnSair = new JButton("Sair");
