@@ -55,7 +55,7 @@ public class Emprestimo {
     }
 
     public void setSecretaria(Secretaria secretaria) {
-        this.secretaria = secretaria; 
+        this.secretaria = secretaria;
     }
 
     public Leitor getLeitor() {
@@ -66,14 +66,16 @@ public class Emprestimo {
         this.leitor = leitor;
     }
 
-    public String toCSV(){
+    public String toCSV() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return String.join(";", String.valueOf(id_emprestimo), sdf.format(data_devolucao), String.valueOf(id_livro), String.valueOf(id_secretaria), String.valueOf(id_leitor));
+        return String.join(";", String.valueOf(id_emprestimo), sdf.format(data_devolucao),
+                String.valueOf(this.getLivro().getId_livro()), String.valueOf(this.getSecretaria().getId_secretaria()),
+                String.valueOf(this.getLeitor().getId_leitor()));
     }
 
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return id_emprestimo + " " + sdf.format(data_devolucao) + " " + livro + " " + secretaria + " " + id_leitor;
+        return id_emprestimo + " " + sdf.format(data_devolucao) + " " + livro + " " + secretaria + " " + leitor;
     }
 }

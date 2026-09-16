@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class EmprestimoControle {
-    public static void cadastrarEmprestimo(String data_devolucao_str, int id_livro, int id_secretaria, int id_leitor, JFrame tela, int idSecretaria){
+    public static void cadastrarEmprestimo(String data_devolucao_str, int id_livro, int id_secretaria, int id_leitor, JFrame tela){
         if(data_devolucao_str.isEmpty() || id_livro == 0 || id_secretaria == 0 || id_leitor == 0){
             JOptionPane.showMessageDialog(tela, "Preencha todos os campos");
             return;
@@ -30,13 +30,13 @@ public class EmprestimoControle {
         }
 
         int id = manipuladorArquivos.proximoId("Emprestimo");
-        Emprestimo e = new Emprestimo(id, dataDevolucao, id_livro, id_secretaria, id_leitor);
-        SecretariaControle.obterSecretaria(idSecretaria).cadastrarEmprestimo(e);
+        Emprestimo e = new Emprestimo( id, dataDevolucao, LivroControle.obterLivro(id_livro),SecretariaControle.obterSecretaria(id_secretaria), LeitorControle.obterLeitor(id_leitor));
+        SecretariaControle.obterSecretaria(id_secretaria).cadastrarEmprestimo(e);
 
         JOptionPane.showMessageDialog(tela, "Paciente cadastrado com sucesso!");
         tela.dispose();
 
-        new view.menus.MenuSecretaria(idSecretaria);
+        new view.menus.MenuSecretaria(id_secretaria);
 
         JOptionPane.showMessageDialog(null, "Secretaria cadastrada com sucesso!");
         tela.dispose();
