@@ -1,5 +1,6 @@
 package util;
 
+import controle.*;
 import modelo.*;
 import javax.swing.*;
 import java.io.*;
@@ -8,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class manipuladorArquivos {
-    private static final String DIRETORIO = "src\\dados";
+    private static final String DIRETORIO = "src/dados";
 
     public static void salvarObjeto(String nomeClasse, Object objeto, int camposEsperados) {
         String linhaCSV = "";
@@ -207,10 +208,13 @@ public class manipuladorArquivos {
             try {
                 int id = Integer.parseInt(campos[0]);
                 Date data_devolucao = sdf.parse(campos[1]);
-                int idlivro = Integer.parseInt(campos[2]);
+                int id_livro = Integer.parseInt(campos[2]);
                 int id_secretaria = Integer.parseInt(campos[3]);
                 int id_leitor = Integer.parseInt(campos[4]);
-                lista.add(new Emprestimo(id, data_devolucao, idlivro, id_secretaria, id_leitor));
+                Livro livro = LivroControle.obterLivro(id_livro);
+                Secretaria secretaria = SecretariaControle.obterSecretaria(id_secretaria);
+                Leitor leitor = LeitorControle.obterLeitor(id_leitor);
+                lista.add(new Emprestimo(id, data_devolucao, livro, secretaria, leitor));
             } catch (Exception e) {
                 System.err.println("Erro ao ler emprestimo: " + e.getMessage() + Arrays.toString(campos));
             }

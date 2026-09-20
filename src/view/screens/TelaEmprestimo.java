@@ -41,18 +41,15 @@ public class TelaEmprestimo extends JFrame {
         painel.add(new JLabel("Livro:"));
         painel.add(cmbLivro);
 
-        painel.add(new JLabel("Data (dd/MM/yyyy):"));
-        painel.add(txtData);
-
 
         JButton btnAgendar = new JButton("Emprestar");
         btnAgendar.addActionListener(e -> {
-            int id_leitor = Integer.parseInt(cmbLeitor.getSelectedItem().toString().split(" - ")[0]);
-            int id_livro = Integer.parseInt(cmbLivro.getSelectedItem().toString().split(" - ")[0]);
-            String data = txtData.getText().trim();
+            System.out.println(cmbLeitor.getSelectedItem().toString().split("-")[0]);
+            int id_leitor = Integer.parseInt(cmbLeitor.getSelectedItem().toString().split("-")[0]);
+            int id_livro = Integer.parseInt(cmbLivro.getSelectedItem().toString().split("-")[0]);
             
 
-            EmprestimoControle.cadastrarEmprestimo(data, id_leitor, id_livro, idSecretaria, this);
+            EmprestimoControle.cadastrarEmprestimo(id_leitor, id_livro, idSecretaria, this);
         });
 
         JButton btnVoltar = new JButton("Voltar");

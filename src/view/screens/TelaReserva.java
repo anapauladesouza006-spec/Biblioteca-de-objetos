@@ -17,53 +17,54 @@ import modelo.Leitor;
 import modelo.Livro;
 import util.manipuladorArquivos;
 import view.menus.MenuReserva;
+import view.menus.MenuSecretaria;
 
 public class TelaReserva extends JFrame {
-   public TelaReserva(int var1) {
-      /*this.setTitle("Realizar Reserva");
+   public TelaReserva(int idSecretaria) {
+      this.setTitle("Realizar Reserva");
       this.setSize(400, 300);
       this.setDefaultCloseOperation(3);
       this.setLocationRelativeTo((Component)null);
-      List var2 = manipuladorArquivos.lerLeitores();
-      List var3 = manipuladorArquivos.lerLivros();
-      JComboBox var4 = new JComboBox();
 
-      for(Leitor var6 : var2) {
-         var4.addItem(var6);
+      List<Leitor> leitores = manipuladorArquivos.lerLeitores();
+      List<Livro> livros = manipuladorArquivos.lerLivros();
+      JComboBox<Leitor> cmbLeitor = new JComboBox<>();
+
+      for(Leitor l : leitores) {
+         cmbLeitor.addItem(l);
       }
 
-      JComboBox var11 = new JComboBox();
-
-      for(Livro var7 : var3) {
-         var11.addItem(var7);
+      JComboBox<Livro> cmbLivro = new JComboBox<>();
+      for(Livro l : livros){
+         cmbLivro.addItem(l);
       }
 
-      JTextField var13 = new JTextField();
-      JTextField var14 = new JTextField();
-      JPanel var8 = new JPanel(new GridLayout(5, 2, 10, 10));
-      var8.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-      var8.add(new JLabel("Leitor:"));
-      var8.add(var4);
-      var8.add(new JLabel("Livro:"));
-      var8.add(var11);
-      var8.add(new JLabel("Data da retirada (dd/MM/yyyy):"));
-      var8.add(var13);
-      JButton var9 = new JButton("Reservar");
-      var9.addActionListener((var6x) -> {
-         int var7 = Integer.parseInt(var4.getSelectedItem().toString().split(" - ")[0]);
-         int var8 = Integer.parseInt(var11.getSelectedItem().toString().split(" - ")[0]);
-         String var9 = var13.getText().trim();
-         String var10 = var14.getText().trim();
-         ReservaControle.reservarLivro(var7, var8, var9, var10, this, var1);
+      JTextField txtRetirada = new JTextField();
+      
+      JPanel painel = new JPanel(new GridLayout(5, 2, 10, 10));
+      
+      painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+      painel.add(new JLabel("Leitor:"));
+      painel.add(cmbLeitor);
+      painel.add(new JLabel("Livro:"));
+      painel.add(cmbLivro);
+      painel.add(new JLabel("Data da retirada (dd/MM/yyyy):"));
+      painel.add(txtRetirada);
+      JButton btnReservar = new JButton("Reservar");
+      btnReservar.addActionListener((var6x) -> {
+         int id_leitor = Integer.parseInt(cmbLeitor.getSelectedItem().toString().split(" - ")[0]);
+         int id_livro = Integer.parseInt(cmbLivro.getSelectedItem().toString().split(" - ")[0]);
+         String data = txtRetirada.getText().trim();
+         /*ReservaControle.reservarLivro(var7, painel, var9, var10, this, var1);*/
       });
-      JButton var10 = new JButton("Voltar");
-      var10.addActionListener((var2x) -> {
+      JButton btnVoltar = new JButton("Voltar");
+      btnVoltar.addActionListener((var2x) -> {
          this.dispose();
-         new MenuReserva(var1);
+         new MenuSecretaria(idSecretaria);
       });
-      var8.add(var10);
-      var8.add(var9);
-      this.add(var8);
-      this.setVisible(true);*/
+      painel.add(btnVoltar);
+      painel.add(btnReservar);
+      this.add(painel);
+      this.setVisible(true);
    }
 }

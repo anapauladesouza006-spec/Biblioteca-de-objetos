@@ -39,10 +39,16 @@ public class MenuSecretaria extends JFrame {
             new TelaCadastroLeitor(this.id_secretaria);
         });
 
+        JButton btnEmprestar = new JButton("Realizar Empréstimo");
+        btnEmprestar.addActionListener(e -> {
+            dispose(); // Fecha o menu
+            new TelaEmprestimo(this.id_secretaria);
+        });
+
         JButton btnReservar = new JButton("Realizar Reserva");
         btnReservar.addActionListener(e -> {
             dispose(); // Fecha o menu
-            new TelaReserva(this.id_secretaria);
+            /*new TelaReserva(this.id_secretaria);*/
         });
 
         JButton btnCadastrarBiblioteca = new JButton("Cadastrar Biblioteca");
@@ -63,6 +69,7 @@ public class MenuSecretaria extends JFrame {
         painel.add(btnCadastrarLeitor);
         painel.add(btnCadastroLivro);
         painel.add(btnCadastrarBiblioteca);
+        painel.add(btnEmprestar);
         painel.add(btnReservar);
         painel.add(btnListarReserva);
         painel.add(btnSair);
