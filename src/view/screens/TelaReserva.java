@@ -24,25 +24,25 @@ public class TelaReserva extends JFrame {
       this.setTitle("Realizar Reserva");
       this.setSize(400, 300);
       this.setDefaultCloseOperation(3);
-      this.setLocationRelativeTo((Component)null);
+      this.setLocationRelativeTo((Component) null);
 
       List<Leitor> leitores = manipuladorArquivos.lerLeitores();
       List<Livro> livros = manipuladorArquivos.lerLivros();
       JComboBox<Leitor> cmbLeitor = new JComboBox<>();
 
-      for(Leitor l : leitores) {
+      for (Leitor l : leitores) {
          cmbLeitor.addItem(l);
       }
 
       JComboBox<Livro> cmbLivro = new JComboBox<>();
-      for(Livro l : livros){
+      for (Livro l : livros) {
          cmbLivro.addItem(l);
       }
 
       JTextField txtRetirada = new JTextField();
-      
+
       JPanel painel = new JPanel(new GridLayout(5, 2, 10, 10));
-      
+
       painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
       painel.add(new JLabel("Leitor:"));
       painel.add(cmbLeitor);
@@ -55,7 +55,7 @@ public class TelaReserva extends JFrame {
          int id_leitor = Integer.parseInt(cmbLeitor.getSelectedItem().toString().split(" - ")[0]);
          int id_livro = Integer.parseInt(cmbLivro.getSelectedItem().toString().split(" - ")[0]);
          String data = txtRetirada.getText().trim();
-         /*ReservaControle.reservarLivro(var7, painel, var9, var10, this, var1);*/
+         /* ReservaControle.reservarLivro(var7, painel, var9, var10, this, var1); */
       });
       JButton btnVoltar = new JButton("Voltar");
       btnVoltar.addActionListener((var2x) -> {

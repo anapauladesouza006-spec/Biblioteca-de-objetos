@@ -4,7 +4,6 @@ import controle.*;
 import modelo.*;
 import javax.swing.*;
 import java.io.*;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -56,7 +55,7 @@ public class manipuladorArquivos {
                 } else if (novoObjeto instanceof Emprestimo) {
                     Emprestimo e = (Emprestimo) novoObjeto;
                     novaLinha = e.toCSV();
-                }else if (novoObjeto instanceof Biblioteca) {
+                } else if (novoObjeto instanceof Biblioteca) {
                     Biblioteca b = (Biblioteca) novoObjeto;
                     novaLinha = b.toCSV();
                 }

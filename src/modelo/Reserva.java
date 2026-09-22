@@ -4,18 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reserva {
-    private int id_reseva;
+    private int id_reserva;
     private String status;
     private Date data_retirada;
-    private int id_livro;
-    private int id_leitor;
+    private Livro livro;
+    private Leitor leitor;
 
-    public Reserva(int id, String status, Date data_retirada, int id_livro, int id_leitor) {
-        this.id_reseva = id;
+    public Reserva(int id, String status, Date data_retirada, Livro livro, Leitor leitor) {
+        this.id_reserva = id;
         this.status = status;
         this.data_retirada = data_retirada;
-        this.id_livro = id_livro;
-        this.id_leitor = id_leitor;
+        this.livro = livro;
+        this.leitor = leitor;
     }
 
     public void reservar(Livro livro) {
@@ -26,12 +26,12 @@ public class Reserva {
 
     }
 
-    public int getId_reseva() {
-        return id_reseva;
+    public int getid_reserva() {
+        return id_reserva;
     }
 
-    public void setId_reseva(int id_reseva) {
-        this.id_reseva = id_reseva;
+    public void setid_reserva(int id_reserva) {
+        this.id_reserva = id_reserva;
     }
 
     public String getStatus() {
@@ -50,31 +50,32 @@ public class Reserva {
         this.data_retirada = data_retirada;
     }
 
-    public int getId_livro() {
-        return id_livro;
+    public Livro getLivro() {
+        return livro;
     }
 
-    public void setId_livro(int id_livro) {
-        this.id_livro = id_livro;
+    public void setLivro(Livro livro) {
+        this.livro = livro;
     }
 
-    public int getId_leitor() {
-        return id_leitor;
+    public Leitor getLeitor() {
+        return leitor;
     }
 
-    public void setId_leitor(int id_leitor) {
-        this.id_leitor = id_leitor;
+    public void setLeitor(Leitor leitor) {
+        this.leitor = leitor;
     }
 
-    public String toCSV(){
+    public String toCSV() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return String.join(";", String.valueOf(id_reseva), status, sdf.format(data_retirada), String.valueOf(id_livro), String.valueOf(id_leitor));
+        return String.join(";", String.valueOf(id_reserva), status, sdf.format(data_retirada),
+                String.valueOf(this.getLivro().getId_livro()),
+                String.valueOf(this.getLeitor().getId_leitor()));
     }
 
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return id_reseva + " " + status + " " + sdf.format(data_retirada) + " " + id_livro + " " + id_leitor;
-
+        return id_reserva + " " + status + " " + sdf.format(data_retirada) + " " + livro + " " + leitor;
     }
 }

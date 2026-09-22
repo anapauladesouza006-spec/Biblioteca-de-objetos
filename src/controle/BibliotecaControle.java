@@ -6,7 +6,8 @@ import javax.swing.*;
 import java.util.List;
 
 public class BibliotecaControle {
-    public static void cadastrarBiblioteca(String nome, String endereco, String telefone, JFrame tela) {
+    public static void cadastrarBiblioteca(String nome, String endereco, String telefone, JFrame tela,
+            int id_secretaria) {
         if (nome.isEmpty() || endereco.isEmpty() || telefone.isEmpty()) {
             JOptionPane.showMessageDialog(tela, "Preencha todos os campos.");
             return;
@@ -14,11 +15,15 @@ public class BibliotecaControle {
 
         int id = manipuladorArquivos.proximoId("Biblioteca");
         Biblioteca c = new Biblioteca(id, nome, endereco, telefone);
-        manipuladorArquivos.salvar("Biblioteca", c.toCSV(),4);
+        manipuladorArquivos.salvar("Biblioteca", c.toCSV(), 4);
 
         JOptionPane.showMessageDialog(tela, "Biblioteca cadastrada com sucesso!");
         tela.dispose();
-        new view.menus.MenuBiblioteca();
+        if (id_secretaria == 0) {
+            new view.menus.MenuBiblioteca();
+        } else {
+            new view.menus.MenuSecretaria(id_secretaria);
+        }
     }
 
     public static Biblioteca obterBiblioteca() {
