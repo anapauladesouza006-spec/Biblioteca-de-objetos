@@ -4,38 +4,40 @@ import modelo.Leitor;
 import util.manipuladorArquivos;
 
 import javax.swing.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class LeitorControle {
-    public static void cadastrarLeitor(String nome, String telefone, String cpf, JFrame tela, int idSecretaria){
-        if(nome.isEmpty() || telefone.isEmpty() || cpf.isEmpty()){
+    public static void cadastrarLeitor(String nome, String telefone, String cpf, JFrame tela, int idSecretaria) {
+        if (nome.isEmpty() || telefone.isEmpty() || cpf.isEmpty()) {
             JOptionPane.showMessageDialog(tela, "Preencha todos os campos");
             return;
         }
 
+        if (idSecretaria == 0 || SecretariaControle.obterSecretaria(idSecretaria) == null) {
+            JOptionPane.showMessageDialog(tela, "Secretaria não encontrada.");
+            return;
+        }
+
         int id = manipuladorArquivos.proximoId("Leitor");
-        Leitor l = new Leitor(id, nome, telefone, cpf);
-        SecretariaControle.obterSecretaria(idSecretaria).cadastrarLeitor(l);
+
+        Leitor leitor = new Leitor(id, nome, telefone, cpf);
+
+        SecretariaControle.obterSecretaria(idSecretaria).cadastrarLeitor(leitor);
 
         JOptionPane.showMessageDialog(tela, "Leitor cadastrado com sucesso!");
+
         tela.dispose();
 
         new view.menus.MenuSecretaria(idSecretaria);
-
-        JOptionPane.showMessageDialog(null, "Secretaria cadastrada com sucesso!");
-        tela.dispose();
-        new view.menus.MenuBiblioteca();
     }
 
-    public static Leitor obterLeitor(int idLeitor){
+    public static Leitor obterLeitor(int idLeitor) {
         List<Leitor> leitores = manipuladorArquivos.lerLeitores();
-        Leitor leitor = leitores.stream()
+
+        return leitores.stream()
                 .filter(l -> l.getId_leitor() == idLeitor)
                 .findFirst()
                 .orElse(null);
-        return leitor;
     }
 }
+

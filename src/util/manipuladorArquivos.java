@@ -1,33 +1,38 @@
 package util;
 
-import controle.*;
-import modelo.*;
+import controle.LeitorControle;
+import controle.LivroControle;
+import controle.SecretariaControle;
+import modelo.Biblioteca;
+import modelo.Emprestimo;
+import modelo.Leitor;
+import modelo.Livro;
+import modelo.Reserva;
+import modelo.Secretaria;
+
 import javax.swing.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class manipuladorArquivos {
-    private static final String DIRETORIO = "src\\dados";
+    private static final String DIRETORIO = "src/dados";
 
     public static void salvarObjeto(String nomeClasse, Object objeto, int camposEsperados) {
         String linhaCSV = "";
 
         if (objeto instanceof Livro) {
-            Livro vro = (Livro) objeto;
-            linhaCSV = vro.toCSV();
+            linhaCSV = ((Livro) objeto).toCSV();
         } else if (objeto instanceof Reserva) {
-            Reserva r = (Reserva) objeto;
-            linhaCSV = r.toCSV();
+            linhaCSV = ((Reserva) objeto).toCSV();
         } else if (objeto instanceof Leitor) {
-            Leitor l = (Leitor) objeto;
-            linhaCSV = l.toCSV();
+            linhaCSV = ((Leitor) objeto).toCSV();
         } else if (objeto instanceof Secretaria) {
-            Secretaria s = (Secretaria) objeto;
-            linhaCSV = s.toCSV();
+            linhaCSV = ((Secretaria) objeto).toCSV();
         } else if (objeto instanceof Emprestimo) {
-            Emprestimo e = (Emprestimo) objeto;
-            linhaCSV = e.toCSV();
+            linhaCSV = ((Emprestimo) objeto).toCSV();
+        } else if (objeto instanceof Biblioteca) {
+            linhaCSV = ((Biblioteca) objeto).toCSV();
         }
 
         salvar(nomeClasse, linhaCSV, camposEsperados);
@@ -37,29 +42,24 @@ public class manipuladorArquivos {
         List<String[]> lista = ler(nomeClasse, camposEsperados);
 
         for (int i = 0; i < lista.size(); i++) {
-            if (lista.get(i)[0].equals(Integer.toString(id))) {
+            if (lista.get(i)[0].equals(String.valueOf(id))) {
                 String novaLinha = "";
 
                 if (novoObjeto instanceof Livro) {
-                    Livro vro = (Livro) novoObjeto;
-                    novaLinha = vro.toCSV();
+                    novaLinha = ((Livro) novoObjeto).toCSV();
                 } else if (novoObjeto instanceof Reserva) {
-                    Reserva r = (Reserva) novoObjeto;
-                    novaLinha = r.toCSV();
+                    novaLinha = ((Reserva) novoObjeto).toCSV();
                 } else if (novoObjeto instanceof Leitor) {
-                    Leitor l = (Leitor) novoObjeto;
-                    novaLinha = l.toCSV();
+                    novaLinha = ((Leitor) novoObjeto).toCSV();
                 } else if (novoObjeto instanceof Secretaria) {
-                    Secretaria s = (Secretaria) novoObjeto;
-                    novaLinha = s.toCSV();
+                    novaLinha = ((Secretaria) novoObjeto).toCSV();
                 } else if (novoObjeto instanceof Emprestimo) {
-                    Emprestimo e = (Emprestimo) novoObjeto;
-                    novaLinha = e.toCSV();
+                    novaLinha = ((Emprestimo) novoObjeto).toCSV();
                 } else if (novoObjeto instanceof Biblioteca) {
-                    Biblioteca b = (Biblioteca) novoObjeto;
-                    novaLinha = b.toCSV();
+                    novaLinha = ((Biblioteca) novoObjeto).toCSV();
                 }
-                lista.set(i, novaLinha.split(";"));
+
+                lista.set(i, novaLinha.split(";", -1));
                 break;
             }
         }
@@ -70,11 +70,16 @@ public class manipuladorArquivos {
     public static void salvar(String nomeClasse, String linhaCSV, int camposEsperados) {
         try {
             File dir = new File(DIRETORIO);
-            if (!dir.exists())
-                dir.mkdir();
-            FileWriter fw = new FileWriter(new File(dir, nomeClasse + ".csv"), true);
-            fw.write(linhaCSV + "\n");
-            fw.close();
+
+            if (!dir.exists() && !dir.mkdirs()) {
+                throw new IOException("Não foi possível criar o diretório de dados.");
+            }
+
+            File arquivo = new File(dir, nomeClasse + ".csv");
+
+            try (FileWriter fw = new FileWriter(arquivo, true)) {
+                fw.write(linhaCSV + System.lineSeparator());
+            }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar: " + e.getMessage());
         }
@@ -82,34 +87,49 @@ public class manipuladorArquivos {
 
     public static List<String[]> ler(String nomeClasse, int camposEsperados) {
         List<String[]> linhas = new ArrayList<>();
+
         File arq = new File(DIRETORIO, nomeClasse + ".csv");
-        if (!arq.exists())
+
+        if (!arq.exists()) {
             return linhas;
+        }
+
         try (BufferedReader br = new BufferedReader(new FileReader(arq))) {
             String linha;
+
             while ((linha = br.readLine()) != null) {
-                String[] partes = linha.split(";");
-                if (camposEsperados > 0) {
-                    if (partes.length == camposEsperados) {
-                        linhas.add(partes);
-                    }
-                } else {
+                if (linha.trim().isEmpty()) {
+                    continue;
+                }
+
+                String[] partes = linha.split(";", -1);
+
+                if (camposEsperados <= 0 || partes.length == camposEsperados) {
                     linhas.add(partes);
                 }
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro ao ler: " + e.getMessage());
         }
+
         return linhas;
     }
 
     public static void salvarLista(String nomeClasse, List<String[]> lista) {
         try {
-            FileWriter fw = new FileWriter(new File(DIRETORIO, nomeClasse + ".csv"), false);
-            for (String[] campos : lista) {
-                fw.write(String.join(";", campos) + "\n");
+            File dir = new File(DIRETORIO);
+
+            if (!dir.exists() && !dir.mkdirs()) {
+                throw new IOException("Não foi possível criar o diretório de dados.");
             }
-            fw.close();
+
+            File arquivo = new File(dir, nomeClasse + ".csv");
+
+            try (FileWriter fw = new FileWriter(arquivo, false)) {
+                for (String[] campos : lista) {
+                    fw.write(String.join(";", campos) + System.lineSeparator());
+                }
+            }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro ao sobrescrever arquivo: " + e.getMessage());
         }
@@ -117,15 +137,21 @@ public class manipuladorArquivos {
 
     public static int proximoId(String nomeClasse) {
         List<String[]> lista = ler(nomeClasse, -1);
+
         int maiorId = 0;
 
         for (String[] campos : lista) {
+            if (campos.length == 0) {
+                continue;
+            }
+
             try {
                 int id = Integer.parseInt(campos[0]);
-                if (id > maiorId)
+
+                if (id > maiorId) {
                     maiorId = id;
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao gerar id: " + e.getMessage());
+                }
+            } catch (NumberFormatException ignored) {
             }
         }
 
@@ -134,106 +160,143 @@ public class manipuladorArquivos {
 
     public static List<Leitor> lerLeitores() {
         List<Leitor> lista = new ArrayList<>();
+
         for (String[] campos : ler("Leitor", 4)) {
             try {
-                int id_leitor = Integer.parseInt(campos[0]);
-                String nome = campos[1];
-                String telefone = campos[2];
-                String cpf = campos[3];
-                lista.add(new Leitor(id_leitor, nome, telefone, cpf));
+                lista.add(new Leitor(
+                        Integer.parseInt(campos[0]),
+                        campos[1],
+                        campos[2],
+                        campos[3]
+                ));
             } catch (Exception e) {
-                System.err.println("Erro ao ler leitor: " + e.getMessage() + Arrays.toString(campos));
+                System.err.println("Erro ao ler leitor: " + e.getMessage());
             }
         }
+
         return lista;
     }
 
     public static List<Reserva> lerReservas() {
         List<Reserva> lista = new ArrayList<>();
+
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        df.setLenient(false);
+
         for (String[] campos : ler("Reserva", 5)) {
             try {
                 int id = Integer.parseInt(campos[0]);
                 String status = campos[1];
-                Date data_retirada = df.parse(campos[2]);
-                int id_livro = Integer.parseInt(campos[3]);
-                int id_leitor = Integer.parseInt(campos[4]);
-                lista.add(new Reserva(id, status, data_retirada, id_livro, id_leitor));
+                Date dataRetirada = df.parse(campos[2]);
+                int idLivro = Integer.parseInt(campos[3]);
+                int idLeitor = Integer.parseInt(campos[4]);
+
+                Livro livro = LivroControle.obterLivro(idLivro);
+                Leitor leitor = LeitorControle.obterLeitor(idLeitor);
+
+                if (livro != null && leitor != null) {
+                    lista.add(new Reserva(id, status, dataRetirada, livro, leitor));
+                }
             } catch (Exception e) {
-                System.err.println("Erro ao ler reserva: " + e.getMessage() + Arrays.toString(campos));
+                System.err.println("Erro ao ler reserva: " + e.getMessage());
             }
         }
+
         return lista;
     }
 
     public static List<Livro> lerLivros() {
         List<Livro> lista = new ArrayList<>();
+
         for (String[] campos : ler("Livro", 5)) {
             try {
-                int id = Integer.parseInt(campos[0]);
-                String titulo = campos[1];
-                String autor = campos[2];
-                String genero = campos[3];
-                String status = campos[4];
-                lista.add(new Livro(id, titulo, autor, genero, status));
+                lista.add(new Livro(
+                        Integer.parseInt(campos[0]),
+                        campos[1],
+                        campos[2],
+                        campos[3],
+                        campos[4]
+                ));
             } catch (Exception e) {
-                System.err.println("Erro ao ler livro: " + e.getMessage() + Arrays.toString(campos));
+                System.err.println("Erro ao ler livro: " + e.getMessage());
             }
         }
+
         return lista;
     }
 
     public static List<Secretaria> lerSecretarias() {
         List<Secretaria> lista = new ArrayList<>();
+
         for (String[] campos : ler("Secretaria", 5)) {
             try {
-                int id = Integer.parseInt(campos[0]);
-                String nome = campos[1];
-                String cargo = campos[2];
-                String telefone = campos[3];
-                String email = campos[4];
-                lista.add(new Secretaria(id, nome, cargo, telefone, email));
+                lista.add(new Secretaria(
+                        Integer.parseInt(campos[0]),
+                        campos[1],
+                        campos[2],
+                        campos[3],
+                        campos[4]
+                ));
             } catch (Exception e) {
-                System.err.println("Erro ao ler secretaria: " + e.getMessage() + Arrays.toString(campos));
+                System.err.println("Erro ao ler secretaria: " + e.getMessage());
             }
         }
+
         return lista;
     }
 
     public static List<Emprestimo> lerEmprestimos() {
         List<Emprestimo> lista = new ArrayList<>();
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
+
         for (String[] campos : ler("Emprestimo", 5)) {
             try {
                 int id = Integer.parseInt(campos[0]);
-                Date data_devolucao = sdf.parse(campos[1]);
-                int id_livro = Integer.parseInt(campos[2]);
-                int id_secretaria = Integer.parseInt(campos[3]);
-                int id_leitor = Integer.parseInt(campos[4]);
-                Livro livro = LivroControle.obterLivro(id_livro);
-                Secretaria secretaria = SecretariaControle.obterSecretaria(id_secretaria);
-                Leitor leitor = LeitorControle.obterLeitor(id_leitor);
-                lista.add(new Emprestimo(id, data_devolucao, livro, secretaria, leitor));
+                Date dataDevolucao = sdf.parse(campos[1]);
+                int idLivro = Integer.parseInt(campos[2]);
+                int idSecretaria = Integer.parseInt(campos[3]);
+                int idLeitor = Integer.parseInt(campos[4]);
+
+                Livro livro = LivroControle.obterLivro(idLivro);
+                Secretaria secretaria = SecretariaControle.obterSecretaria(idSecretaria);
+                Leitor leitor = LeitorControle.obterLeitor(idLeitor);
+
+                if (livro != null && secretaria != null && leitor != null) {
+                    lista.add(new Emprestimo(
+                            id,
+                            dataDevolucao,
+                            livro,
+                            secretaria,
+                            leitor
+                    ));
+                }
             } catch (Exception e) {
-                System.err.println("Erro ao ler emprestimo: " + e.getMessage() + Arrays.toString(campos));
+                System.err.println("Erro ao ler empréstimo: " + e.getMessage());
             }
         }
+
         return lista;
     }
 
     public static List<Biblioteca> lerBibliotecas() {
         List<Biblioteca> lista = new ArrayList<>();
+
         for (String[] campos : ler("Biblioteca", 4)) {
             try {
-                int id = Integer.parseInt(campos[0]);
-                String nome = campos[1];
-                String endereco = campos[2];
-                String telefone = campos[3];
-                lista.add(new Biblioteca(id, nome, endereco, telefone));
+                lista.add(new Biblioteca(
+                        Integer.parseInt(campos[0]),
+                        campos[1],
+                        campos[2],
+                        campos[3]
+                ));
             } catch (Exception e) {
-                System.err.println("Erro ao ler Biblioteca: " + e.getMessage() + Arrays.toString(campos));
+                System.err.println("Erro ao ler biblioteca: " + e.getMessage());
             }
         }
+
         return lista;
     }
 }
+

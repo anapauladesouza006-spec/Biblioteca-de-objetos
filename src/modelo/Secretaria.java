@@ -69,6 +69,10 @@ public class Secretaria {
         manipuladorArquivos.salvarObjeto("Emprestimo", emprestimo, 5);
     }
 
+    public void cadastrarReserva(Reserva reserva) {
+        manipuladorArquivos.salvarObjeto("Reserva", reserva, 5);
+    }
+
     public void cadastrarBiblioteca(Biblioteca biblioteca) {
         manipuladorArquivos.salvarObjeto("Biblioteca", biblioteca, 4);
     }
@@ -79,6 +83,6 @@ public class Secretaria {
 
     @Override
     public String toString() {
-        return id_secretaria + " " + nome + " " + cargo + " " + telefone + " " + email;
+        return id_secretaria + " - " + nome + " - " + cargo + " - " + telefone + " - " + email;
     }
 }
