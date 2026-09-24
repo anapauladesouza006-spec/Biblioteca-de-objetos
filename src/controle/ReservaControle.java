@@ -12,7 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ReservaControle {
-    public static void cadastrarReserva(String dataRetirada, int idLivro, int idLeitor, String status, JFrame tela, int idSecretaria) {
+    public static void cadastrarReserva(String dataRetirada, int idLivro, int idLeitor, String status, JFrame tela,
+            int idSecretaria) {
         if (dataRetirada.isEmpty() || idLivro == 0 || idLeitor == 0 || status.isEmpty()) {
             JOptionPane.showMessageDialog(tela, "Preencha todos os campos");
             return;
@@ -65,4 +66,3 @@ public class ReservaControle {
         return manipuladorArquivos.lerReservas();
     }
 }
-

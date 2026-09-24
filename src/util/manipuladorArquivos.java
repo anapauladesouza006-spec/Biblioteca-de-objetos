@@ -67,6 +67,24 @@ public class manipuladorArquivos {
         salvarLista(nomeClasse, lista);
     }
 
+    // EXCLUIR OBJETO
+
+    public static void excluirObjeto(String nomeClasse, int id) {
+
+        List<String[]> lista = ler(nomeClasse, -1);
+
+        for (int i = 0; i < lista.size(); i++) {
+
+            if (lista.get(i)[0].equals(String.valueOf(id))) {
+
+                lista.remove(i);
+                break;
+            }
+        }
+
+        salvarLista(nomeClasse, lista);
+    }
+
     public static void salvar(String nomeClasse, String linhaCSV, int camposEsperados) {
         try {
             File dir = new File(DIRETORIO);
@@ -167,8 +185,7 @@ public class manipuladorArquivos {
                         Integer.parseInt(campos[0]),
                         campos[1],
                         campos[2],
-                        campos[3]
-                ));
+                        campos[3]));
             } catch (Exception e) {
                 System.err.println("Erro ao ler leitor: " + e.getMessage());
             }
@@ -215,8 +232,7 @@ public class manipuladorArquivos {
                         campos[1],
                         campos[2],
                         campos[3],
-                        campos[4]
-                ));
+                        campos[4]));
             } catch (Exception e) {
                 System.err.println("Erro ao ler livro: " + e.getMessage());
             }
@@ -235,8 +251,7 @@ public class manipuladorArquivos {
                         campos[1],
                         campos[2],
                         campos[3],
-                        campos[4]
-                ));
+                        campos[4]));
             } catch (Exception e) {
                 System.err.println("Erro ao ler secretaria: " + e.getMessage());
             }
@@ -269,8 +284,7 @@ public class manipuladorArquivos {
                             dataDevolucao,
                             livro,
                             secretaria,
-                            leitor
-                    ));
+                            leitor));
                 }
             } catch (Exception e) {
                 System.err.println("Erro ao ler empréstimo: " + e.getMessage());
@@ -289,8 +303,7 @@ public class manipuladorArquivos {
                         Integer.parseInt(campos[0]),
                         campos[1],
                         campos[2],
-                        campos[3]
-                ));
+                        campos[3]));
             } catch (Exception e) {
                 System.err.println("Erro ao ler biblioteca: " + e.getMessage());
             }
@@ -299,4 +312,3 @@ public class manipuladorArquivos {
         return lista;
     }
 }
-
