@@ -5,9 +5,11 @@ import javax.swing.*;
 import controle.BibliotecaControle;
 import modelo.Biblioteca;
 import view.screens.*;
+import util.manipuladorArquivos;
 
 import java.awt.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MenuBiblioteca extends JFrame {
 
@@ -48,8 +50,6 @@ public class MenuBiblioteca extends JFrame {
             dispose();
             new MenuInicial();
         });
-        /*painel.add(btnLivro);
-        painel.add(btnCadastrarLeitor);*/
         painel.add(btnSecretaria);
         painel.add(btnBiblioteca);
         painel.add(btnListar);
@@ -141,8 +141,16 @@ public class MenuBiblioteca extends JFrame {
         painel.setBorder(
                 BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel lblId = new JLabel("ID da Biblioteca:");
-        JTextField txtId = new JTextField();
+        /*JLabel lblId = new JLabel("ID da Biblioteca:");
+        JTextField txtId = new JTextField();*/
+
+        List<Biblioteca> bibliotecas = manipuladorArquivos.lerBibliotecas();
+
+        JComboBox<Biblioteca> cmbBiblioteca = new JComboBox<>();
+
+        for (Biblioteca b : biblioteca) {
+            cmbBiblioteca.addItem(b);
+        }
 
         JLabel lblNome = new JLabel("Novo Nome:");
         JTextField txtNome = new JTextField();
@@ -159,8 +167,9 @@ public class MenuBiblioteca extends JFrame {
 
             try {
 
-                int id = Integer.parseInt(
-                        txtId.getText().trim());
+                String biblioteca[] = cmbBiblioteca.getSelectedItem();
+
+                int id = 
 
                 Biblioteca biblioteca = BibliotecaControle.obterBiblioteca(id);
 
@@ -196,22 +205,19 @@ public class MenuBiblioteca extends JFrame {
 
             try {
 
-                int id = Integer.parseInt(
-                        txtId.getText().trim());
+            if (cmbBiblioteca.getSelectedItem() == null || cmbBiblioteca.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Cadastre uma biblioteca para realizar alterações"
+                );
+                return;
+            }
 
-                Biblioteca biblioteca = BibliotecaControle.obterBiblioteca(id);
+            Biblioteca biblioteca = (Biblioteca) cmbBiblioteca.getSelectedItem();
 
-                if (biblioteca == null) {
-
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Biblioteca não encontrada.");
-
-                    return;
-                }
 
                 BibliotecaControle.editarBiblioteca(
-                        id,
+                        biblioteca.getId_biblioteca(),
                         txtNome.getText().trim(),
                         txtEndereco.getText().trim(),
                         txtTelefone.getText().trim(),

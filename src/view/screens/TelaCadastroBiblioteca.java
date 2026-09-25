@@ -2,11 +2,9 @@
 package view.screens;
 
 import controle.BibliotecaControle;
-import modelo.Biblioteca;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class TelaCadastroBiblioteca extends JFrame {
 

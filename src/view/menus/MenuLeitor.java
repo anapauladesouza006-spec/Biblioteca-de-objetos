@@ -10,7 +10,7 @@ public class MenuLeitor extends JFrame {
     public MenuLeitor(int id_leitor) {
         this.id_leitor = id_leitor;
 
-        setTitle("Menu Leitor - "+this.id_leitor);
+        setTitle("Menu Leitor - " + this.id_leitor);
         setSize(400, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -18,9 +18,13 @@ public class MenuLeitor extends JFrame {
         JPanel painel = new JPanel(new GridLayout(3, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton btnReserva = new JButton("Reservas");
+        JButton btnListarLivros = new JButton("Listar Livros");
 
-        JButton btnReservar = new JButton("Atualizar reserva");
+        JButton btnReservar = new JButton("Cadastrar Reserva");
+
+        JButton btnDevolver = new JButton("Realizar Devolução");
+
+
 
         JButton btnSair = new JButton("Sair");
         btnSair.addActionListener(e -> {
@@ -28,8 +32,9 @@ public class MenuLeitor extends JFrame {
             new MenuInicial(); 
         });
 
-        painel.add(btnReserva);
+        painel.add(btnListarLivros);
         painel.add(btnReservar);
+        painel.add(btnDevolver);
         painel.add(btnSair);
 
         add(painel);
