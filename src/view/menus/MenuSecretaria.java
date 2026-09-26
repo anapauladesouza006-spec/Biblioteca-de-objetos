@@ -2,12 +2,7 @@ package view.menus;
 
 import controle.ReservaControle;
 import modelo.Reserva;
-import view.screens.TelaCadastroBiblioteca;
-import view.screens.TelaCadastroLeitor;
-import view.screens.TelaCadastroLivro;
-import view.screens.TelaCadastroSecretaria;
-import view.screens.TelaEmprestimo;
-import view.screens.TelaReserva;
+import view.screens.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,6 +68,12 @@ public class MenuSecretaria extends JFrame {
 
         btnListarReserva.addActionListener(e -> listarReservas());
 
+        JButton btnDevolucao = new JButton("Devolução");
+        btnDevolucao.addActionListener(e -> {
+            dispose();
+            new TelaDevolucao(idSecretaria, 0);
+        });
+
         JButton btnSair = new JButton("Sair");
 
         btnSair.addActionListener(e -> {
@@ -85,6 +86,7 @@ public class MenuSecretaria extends JFrame {
         painel.add(btnCadastroLivro);
         painel.add(btnCadastrarBiblioteca);
         painel.add(btnEmprestar);
+        painel.add(btnDevolucao);
         painel.add(btnReservar);
         painel.add(btnListarReserva);
         painel.add(btnSair);

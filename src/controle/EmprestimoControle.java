@@ -84,4 +84,14 @@ public class EmprestimoControle {
                 .findFirst()
                 .orElse(null);
     }
+
+    public static Emprestimo buscarEmprestimo(int id_leitor, int id_livro) {
+        List<Emprestimo> emprestimos = manipuladorArquivos.lerEmprestimos();
+
+        return emprestimos.stream()
+                .filter(e -> e.getLeitor().getId_leitor() == id_leitor)
+                .filter(e -> e.getLivro().getId_livro() == id_livro)
+                .findFirst()
+                .orElse(null);
+    }
 }

@@ -5,6 +5,7 @@ import controle.LivroControle;
 import modelo.Biblioteca;
 import modelo.Livro;
 import util.manipuladorArquivos;
+import view.screens.TelaDevolucao;
 import view.screens.TelaReserva;
 
 import javax.swing.*;
@@ -40,6 +41,10 @@ public class MenuLeitor extends JFrame {
         });
 
         JButton btnDevolver = new JButton("Realizar Devolução");
+        btnDevolver.addActionListener(e -> {
+            dispose();
+            new TelaDevolucao(0, this.id_leitor);
+        });
 
         JButton btnSair = new JButton("Sair");
         btnSair.addActionListener(e -> {
