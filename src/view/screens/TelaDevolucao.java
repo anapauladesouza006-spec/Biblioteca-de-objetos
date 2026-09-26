@@ -11,8 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class TelaReserva extends JFrame {
-    public TelaReserva(int idSecretaria, int id_leitor) {
+public class TelaDevolucao extends JFrame {
+    public TelaDevolucao(int idSecretaria, int id_leitor) {
         setTitle("Realizar Reserva");
         setSize(450, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

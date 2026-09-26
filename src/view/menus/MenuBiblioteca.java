@@ -55,7 +55,6 @@ public class MenuBiblioteca extends JFrame {
         painel.add(btnListar);
         painel.add(btnAlterar);
         painel.add(btnExcluir);
-
         painel.add(btnSair);
 
         add(painel);
@@ -141,14 +140,13 @@ public class MenuBiblioteca extends JFrame {
         painel.setBorder(
                 BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        /*JLabel lblId = new JLabel("ID da Biblioteca:");
-        JTextField txtId = new JTextField();*/
+        JLabel lblBiblioteca = new JLabel("Biblioteca:");
 
         List<Biblioteca> bibliotecas = manipuladorArquivos.lerBibliotecas();
 
         JComboBox<Biblioteca> cmbBiblioteca = new JComboBox<>();
 
-        for (Biblioteca b : biblioteca) {
+        for (Biblioteca b : bibliotecas) {
             cmbBiblioteca.addItem(b);
         }
 
@@ -167,11 +165,7 @@ public class MenuBiblioteca extends JFrame {
 
             try {
 
-                String biblioteca[] = cmbBiblioteca.getSelectedItem();
-
-                int id = 
-
-                Biblioteca biblioteca = BibliotecaControle.obterBiblioteca(id);
+                Biblioteca biblioteca = (Biblioteca) cmbBiblioteca.getSelectedItem();
 
                 if (biblioteca == null) {
 
@@ -238,8 +232,8 @@ public class MenuBiblioteca extends JFrame {
             new MenuBiblioteca();
         });
 
-        painel.add(lblId);
-        painel.add(txtId);
+        painel.add(lblBiblioteca);
+        painel.add(cmbBiblioteca);
 
         painel.add(lblNome);
         painel.add(txtNome);
@@ -282,7 +276,13 @@ public class MenuBiblioteca extends JFrame {
 
         JLabel lblId = new JLabel("ID da Biblioteca:");
 
-        JTextField txtId = new JTextField();
+        List<Biblioteca> bibliotecas = manipuladorArquivos.lerBibliotecas();
+
+        JComboBox<Biblioteca> cmbBiblioteca = new JComboBox<>();
+
+        for (Biblioteca b : bibliotecas) {
+            cmbBiblioteca.addItem(b);
+        }
 
         JButton btnExcluir = new JButton("Excluir");
 
@@ -290,10 +290,7 @@ public class MenuBiblioteca extends JFrame {
 
             try {
 
-                int id = Integer.parseInt(
-                        txtId.getText().trim());
-
-                Biblioteca biblioteca = BibliotecaControle.obterBiblioteca(id);
+                Biblioteca biblioteca = (Biblioteca) cmbBiblioteca.getSelectedItem();
 
                 if (biblioteca == null) {
 
@@ -305,10 +302,16 @@ public class MenuBiblioteca extends JFrame {
                 }
 
                 BibliotecaControle.excluirBiblioteca(
-                        id,
+                        biblioteca.getId_biblioteca(),
                         this);
 
-                txtId.setText("");
+                //txtId.setText("");
+                cmbBiblioteca.removeAllItems();
+                List<Biblioteca> bibliotecasNovas = manipuladorArquivos.lerBibliotecas();
+
+                for (Biblioteca b : bibliotecasNovas) {
+                    cmbBiblioteca.addItem(b);
+                }
 
             } catch (NumberFormatException ex) {
 
@@ -326,7 +329,7 @@ public class MenuBiblioteca extends JFrame {
         });
 
         painelCentro.add(lblId);
-        painelCentro.add(txtId);
+        painelCentro.add(cmbBiblioteca);
         painelCentro.add(btnExcluir);
         painelCentro.add(btnVoltar);
 

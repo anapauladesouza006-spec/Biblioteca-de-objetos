@@ -44,22 +44,28 @@ public class ReservaControle {
             return;
         }
 
-        if (SecretariaControle.obterSecretaria(idSecretaria) == null) {
-            JOptionPane.showMessageDialog(tela, "Secretaria não encontrada.");
-            return;
-        }
-
         int id = manipuladorArquivos.proximoId("Reserva");
 
         Reserva reserva = new Reserva(id, status, data, livro, leitor);
 
-        SecretariaControle.obterSecretaria(idSecretaria).cadastrarReserva(reserva);
+        if(idSecretaria != 0){
+            SecretariaControle.obterSecretaria(idSecretaria).cadastrarReserva(reserva);
+        }
+        else{
+            leitor.cadastrarReserva(reserva);
+        }
+
 
         JOptionPane.showMessageDialog(tela, "Reserva realizada com sucesso!");
 
         tela.dispose();
 
-        new view.menus.MenuSecretaria(idSecretaria);
+        if(idSecretaria != 0){
+            new view.menus.MenuSecretaria(idSecretaria);
+        }
+        else{
+            new view.menus.MenuLeitor(idLeitor);
+        }
     }
 
     public static List<Reserva> listarReservas() {

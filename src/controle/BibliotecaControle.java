@@ -57,8 +57,6 @@ public class BibliotecaControle {
         return manipuladorArquivos.lerBibliotecas();
     }
 
-    // OBTER BIBLIOTECA PELO ID
-
     public static Biblioteca obterBiblioteca(int id) {
 
         List<Biblioteca> lista = manipuladorArquivos.lerBibliotecas();

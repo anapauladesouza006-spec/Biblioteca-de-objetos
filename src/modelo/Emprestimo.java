@@ -76,6 +76,6 @@ public class Emprestimo {
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return id_emprestimo + " " + sdf.format(data_devolucao) + " " + livro + " " + secretaria + " " + leitor;
+        return id_emprestimo + " - " + sdf.format(data_devolucao) + " - " + livro + " - " + secretaria + " - " + leitor;
     }
 }

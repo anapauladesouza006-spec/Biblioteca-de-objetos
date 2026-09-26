@@ -26,7 +26,7 @@ public class TelaCadastroBiblioteca extends JFrame {
 
     private void mostrarCadastro() {
 
-        JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
+        JPanel painel = new JPanel(new GridLayout(5, 2, 10, 10));
 
         painel.setBorder(
                 BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -55,17 +55,14 @@ public class TelaCadastroBiblioteca extends JFrame {
 
         painel.add(lblNome);
         painel.add(txtNome);
-
         painel.add(lblEndereco);
         painel.add(txtEndereco);
-
         painel.add(lblTelefone);
         painel.add(txtTelefone);
-
         painel.add(btnSalvar);
+        painel.add(btnVoltar);
 
         painel.add(new JLabel());
-        painel.add(btnVoltar);
 
         setContentPane(painel);
 

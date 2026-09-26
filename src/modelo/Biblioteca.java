@@ -67,7 +67,7 @@ public class Biblioteca {
 
         @Override
         public String toString(){
-            return "ID: " + id_biblioteca + "Nome: " + nomeBiblioteca + "Endereço: " + endereco + "Telefone: " + telefone;
+            return id_biblioteca + " - " + nomeBiblioteca + " - " + endereco + " - " + telefone;
         }
 
         public String toCSV(){

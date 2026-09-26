@@ -76,6 +76,6 @@ public class Reserva {
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return id_reserva + " " + status + " " + sdf.format(data_retirada) + " " + livro + " " + leitor;
+        return id_reserva + " - " + status + " - " + sdf.format(data_retirada) + " - " + livro + " - " + leitor;
     }
 }

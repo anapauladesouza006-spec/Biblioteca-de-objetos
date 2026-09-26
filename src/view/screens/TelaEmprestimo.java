@@ -23,7 +23,7 @@ public class TelaEmprestimo extends JFrame {
         List<Livro> livros = manipuladorArquivos.lerLivros()
                 .stream()
                 .filter(l -> !l.getStatus().equalsIgnoreCase("Emprestado"))
-                .collect(Collectors.toList());
+                .toList();
 
         JComboBox<Leitor> cmbLeitor = new JComboBox<>();
 

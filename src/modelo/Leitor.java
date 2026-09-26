@@ -1,5 +1,7 @@
 package modelo;
 
+import util.manipuladorArquivos;
+
 public class Leitor {
     private int id_leitor;
     private String nome;
@@ -13,12 +15,8 @@ public class Leitor {
         this.cpf = cpf;
     }
 
-    public void solicitar(Leitor leitor) {
-
-    }
-
-    public void pagarMulta(Leitor leitor) {
-
+    public void cadastrarReserva(Reserva reserva) {
+        manipuladorArquivos.salvarObjeto("Reserva", reserva, 5);
     }
 
     public int getId_leitor() {

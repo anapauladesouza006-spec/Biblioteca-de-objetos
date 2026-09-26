@@ -59,7 +59,7 @@ public class MenuSecretaria extends JFrame {
 
         btnReservar.addActionListener(e -> {
             dispose();
-            new TelaReserva(this.idSecretaria);
+            new TelaReserva(this.idSecretaria, 0);
         });
 
         JButton btnCadastrarBiblioteca = new JButton("Cadastrar Biblioteca");
