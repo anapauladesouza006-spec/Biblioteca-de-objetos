@@ -60,4 +60,9 @@ public class Leitor {
         return id_leitor + " - " + nome + " - " + telefone + " - " + cpf;
     }
 
+    public String getEmail() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEmail'");
+    }
+
 }

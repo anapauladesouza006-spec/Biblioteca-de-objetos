@@ -1,17 +1,17 @@
 package view.menus;
 
-import controle.BibliotecaControle;
-import controle.LivroControle;
-import modelo.Biblioteca;
+import controle.LeitorControle;
+import controle.ReservaControle;
+import modelo.Leitor;
 import modelo.Livro;
+import modelo.Reserva;
 import util.manipuladorArquivos;
+import view.screens.TelaCadastroLeitor;
 import view.screens.TelaDevolucao;
 import view.screens.TelaReserva;
 
 import javax.swing.*;
-
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class MenuLeitor extends JFrame {
@@ -20,25 +20,46 @@ public class MenuLeitor extends JFrame {
     public MenuLeitor(int id_leitor) {
         this.id_leitor = id_leitor;
 
-        setTitle("Menu Leitor - " + this.id_leitor);
-        setSize(400, 400);
+        setTitle("Menu Leitor - ID: " + this.id_leitor);
+        setSize(450, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel painel = new JPanel(new GridLayout(3, 1, 10, 10));
-        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        JPanel painel = new JPanel(new GridLayout(10, 1, 5, 5));
+        painel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        JButton btnListarLivros = new JButton("Listar Livros");
+        JButton btnListarLivros = new JButton("Listar Livros Disponíveis");
+        btnListarLivros.addActionListener(e -> mostrarListaLivros());
 
-        btnListarLivros.addActionListener(e -> {
-            mostrarLista(id_leitor);
+        JButton btnCadastrarLeitor = new JButton("Cadastrar Leitor");
+        btnCadastrarLeitor.addActionListener(e -> {
+            dispose();
+            new TelaCadastroLeitor(this.id_leitor);
         });
 
-        JButton btnReservar = new JButton("Cadastrar Reserva");
-        btnReservar.addActionListener(e ->{
+        JButton btnEditarLeitor = new JButton("Editar Leitor");
+        btnEditarLeitor.addActionListener(e -> mostrarAlteracaoLeitor());
+
+        JButton btnListarLeitor = new JButton("Listar Leitores");
+        btnListarLeitor.addActionListener(e -> mostrarListaLeitores());
+
+        JButton btnExcluirLeitor = new JButton("Excluir Leitor");
+        btnExcluirLeitor.addActionListener(e -> mostrarExclusaoLeitor());
+
+        JButton btnCadastrarReserva = new JButton("Cadastrar Reserva");
+        btnCadastrarReserva.addActionListener(e -> {
             dispose();
             new TelaReserva(0, this.id_leitor);
         });
+
+        JButton btnListarReserva = new JButton("Listar Reservas");
+        btnListarReserva.addActionListener(e -> mostrarListaReservas());
+
+        JButton btnEditarReserva = new JButton("Editar Reserva");
+        btnEditarReserva.addActionListener(e -> mostrarAlteracaoReserva());
+
+        JButton btnExcluirReserva = new JButton("Excluir Reserva");
+        btnExcluirReserva.addActionListener(e -> mostrarExclusaoReserva());
 
         JButton btnDevolver = new JButton("Realizar Devolução");
         btnDevolver.addActionListener(e -> {
@@ -49,11 +70,18 @@ public class MenuLeitor extends JFrame {
         JButton btnSair = new JButton("Sair");
         btnSair.addActionListener(e -> {
             dispose();
-            new MenuInicial(); 
+            new MenuInicial();
         });
 
         painel.add(btnListarLivros);
-        painel.add(btnReservar);
+        painel.add(btnCadastrarLeitor);
+        painel.add(btnEditarLeitor);
+        painel.add(btnListarLeitor);
+        painel.add(btnExcluirLeitor);
+        painel.add(btnCadastrarReserva);
+        painel.add(btnListarReserva);
+        painel.add(btnEditarReserva);
+        painel.add(btnExcluirReserva);
         painel.add(btnDevolver);
         painel.add(btnSair);
 
@@ -61,63 +89,269 @@ public class MenuLeitor extends JFrame {
         setVisible(true);
     }
 
-    private void mostrarLista(int id_leitor) {
+    // CONSULTA DE LIVROS
 
+    private void mostrarListaLivros() {
         JPanel painel = new JPanel(new BorderLayout(10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        painel.setBorder(
-                BorderFactory.createEmptyBorder(15, 15, 15, 15));
-
-        JLabel titulo = new JLabel(
-                "Livros disponíveis",
-                SwingConstants.CENTER);
-
-        titulo.setFont(
-                new Font("Arial", Font.BOLD, 18));
+        JLabel titulo = new JLabel("Livros disponíveis", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
 
         JTextArea areaLista = new JTextArea();
-
         areaLista.setEditable(false);
 
         List<Livro> livros = manipuladorArquivos.lerLivros();
 
         if (livros.isEmpty()) {
-
-            areaLista.setText(
-                    "Nenhum livro disponível.");
-
+            areaLista.setText("Nenhum livro disponível.");
         } else {
+            StringBuilder texto = new StringBuilder();
+            for (Livro livro : livros) {
+                texto.append("ID: ").append(livro.getId_livro()).append("\n");
+                texto.append("Título: ").append(livro.getTitulo()).append("\n");
+                texto.append("Escrito por ").append(livro.getAutor()).append("\n");
+                texto.append("Gênero: ").append(livro.getGenero()).append("\n");
+                texto.append("Status de reserva: ").append(livro.getStatus()).append("\n");
+                texto.append("-----------------------------\n");
+            }
+            areaLista.setText(texto.toString());
+        }
 
+        JScrollPane scroll = new JScrollPane(areaLista);
+        JButton btnVoltar = new JButton("Voltar");
+
+        btnVoltar.addActionListener(e -> {
+            new MenuLeitor(id_leitor);
+            dispose();
+        });
+
+        painel.add(titulo, BorderLayout.NORTH);
+        painel.add(scroll, BorderLayout.CENTER);
+        painel.add(btnVoltar, BorderLayout.SOUTH);
+
+        setContentPane(painel);
+        revalidate();
+        repaint();
+    }
+
+    // CRUD DE LEITOR
+
+    private void mostrarListaLeitores() {
+        JPanel painel = new JPanel(new BorderLayout(10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        JLabel titulo = new JLabel("Leitores Cadastrados", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+
+        JTextArea areaLista = new JTextArea();
+        areaLista.setEditable(false);
+
+        List<Leitor> leitores = manipuladorArquivos.lerLeitores();
+
+        if (leitores.isEmpty()) {
+            areaLista.setText("Nenhum leitor cadastrado.");
+        } else {
+            StringBuilder texto = new StringBuilder();
+            for (Leitor leitor : leitores) {
+                texto.append("ID: ").append(leitor.getId_leitor()).append("\n");
+                texto.append("Nome: ").append(leitor.getNome()).append("\n");
+                texto.append("E-mail: ").append(leitor.getEmail()).append("\n");
+                texto.append("Telefone: ").append(leitor.getTelefone()).append("\n");
+                texto.append("-----------------------------\n");
+            }
+            areaLista.setText(texto.toString());
+        }
+
+        JScrollPane scroll = new JScrollPane(areaLista);
+        JButton btnVoltar = new JButton("Voltar");
+
+        btnVoltar.addActionListener(e -> {
+            new MenuLeitor(id_leitor);
+            dispose();
+        });
+
+        painel.add(titulo, BorderLayout.NORTH);
+        painel.add(scroll, BorderLayout.CENTER);
+        painel.add(btnVoltar, BorderLayout.SOUTH);
+
+        setContentPane(painel);
+        revalidate();
+        repaint();
+    }
+
+    private void mostrarAlteracaoLeitor() {
+        JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel lblLeitor = new JLabel("Leitor:");
+        List<Leitor> leitores = manipuladorArquivos.lerLeitores();
+        JComboBox<Leitor> cmbLeitor = new JComboBox<>();
+
+        for (Leitor l : leitores) {
+            cmbLeitor.addItem(l);
+        }
+
+        JLabel lblNome = new JLabel("Novo Nome:");
+        JTextField txtNome = new JTextField();
+
+        JLabel lblEmail = new JLabel("Novo E-mail:");
+        JTextField txtEmail = new JTextField();
+
+        JLabel lblTelefone = new JLabel("Novo Telefone:");
+        JTextField txtTelefone = new JTextField();
+
+        JButton btnBuscar = new JButton("Buscar");
+
+        btnBuscar.addActionListener(e -> {
+            try {
+                Leitor leitor = (Leitor) cmbLeitor.getSelectedItem();
+                if (leitor == null) {
+                    JOptionPane.showMessageDialog(this, "Leitor não encontrado.");
+                    return;
+                }
+                txtNome.setText(leitor.getNome());
+                txtEmail.setText(leitor.getEmail());
+                txtTelefone.setText(leitor.getTelefone());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao buscar dados do leitor.");
+            }
+        });
+
+        JButton btnSalvar = new JButton("Salvar Alteração");
+
+        btnSalvar.addActionListener(e -> {
+            try {
+                if (cmbLeitor.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(this, "Cadastre um leitor para realizar alterações.");
+                    return;
+                }
+
+                Leitor leitor = (Leitor) cmbLeitor.getSelectedItem();
+
+                LeitorControle.editarLeitor(
+                        leitor.getId_leitor(),
+                        txtNome.getText().trim(),
+                        txtEmail.getText().trim(),
+                        txtTelefone.getText().trim(),
+                        this);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao atualizar leitor.");
+            }
+        });
+
+        JButton btnVoltar = new JButton("Voltar");
+
+        btnVoltar.addActionListener(e -> {
+            dispose();
+            new MenuLeitor(id_leitor);
+        });
+
+        painel.add(lblLeitor);
+        painel.add(cmbLeitor);
+        painel.add(lblNome);
+        painel.add(txtNome);
+        painel.add(lblEmail);
+        painel.add(txtEmail);
+        painel.add(lblTelefone);
+        painel.add(txtTelefone);
+        painel.add(btnBuscar);
+        painel.add(btnSalvar);
+        painel.add(new JLabel());
+        painel.add(btnVoltar);
+
+        setContentPane(painel);
+        revalidate();
+        repaint();
+    }
+
+    private void mostrarExclusaoLeitor() {
+        JPanel painel = new JPanel(new BorderLayout(10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel titulo = new JLabel("Excluir Leitor", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+
+        JPanel painelCentro = new JPanel(new GridLayout(2, 2, 10, 10));
+        JLabel lblId = new JLabel("ID do Leitor:");
+
+        List<Leitor> leitores = manipuladorArquivos.lerLeitores();
+        JComboBox<Leitor> cmbLeitor = new JComboBox<>();
+
+        for (Leitor l : leitores) {
+            cmbLeitor.addItem(l);
+        }
+
+        JButton btnExcluir = new JButton("Excluir");
+
+        btnExcluir.addActionListener(e -> {
+            try {
+                Leitor leitor = (Leitor) cmbLeitor.getSelectedItem();
+
+                if (leitor == null) {
+                    JOptionPane.showMessageDialog(this, "Leitor não encontrado.");
+                    return;
+                }
+
+                LeitorControle.excluirLeitor(leitor.getId_leitor(), this);
+
+                cmbLeitor.removeAllItems();
+                List<Leitor> leitoresNovos = manipuladorArquivos.lerLeitores();
+
+                for (Leitor l : leitoresNovos) {
+                    cmbLeitor.addItem(l);
+                }
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir leitor.");
+            }
+        });
+
+        JButton btnVoltar = new JButton("Voltar");
+
+        btnVoltar.addActionListener(e -> {
+            dispose();
+            new MenuLeitor(id_leitor);
+        });
+
+        painelCentro.add(lblId);
+        painelCentro.add(cmbLeitor);
+        painelCentro.add(btnExcluir);
+        painelCentro.add(btnVoltar);
+
+        painel.add(titulo, BorderLayout.NORTH);
+        painel.add(painelCentro, BorderLayout.CENTER);
+
+        setContentPane(painel);
+        revalidate();
+        repaint();
+    }
+
+    // CRUD DE RESERVA
+
+    private void mostrarListaReservas() {
+        JPanel painel = new JPanel(new BorderLayout(10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        JLabel titulo = new JLabel("Reservas Cadastradas", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+
+        JTextArea areaLista = new JTextArea();
+        areaLista.setEditable(false);
+
+        List<Reserva> reservas = manipuladorArquivos.lerReservas();
+
+        if (reservas.isEmpty()) {
+            areaLista.setText("Nenhuma reserva cadastrada.");
+        } else {
             StringBuilder texto = new StringBuilder();
 
-            /*private int id_livro;
-            private String titulo;
-            private String autor;
-            private String genero;
-            private String status;*/
-
-            for (Livro livro : livros) {
-
-                texto.append("ID: ")
-                        .append(livro.getId_livro())
-                        .append("\n");
-
-                texto.append("Título: ")
-                        .append(livro.getTitulo())
-                        .append("\n");
-
-                texto.append("Escrito por ")
-                        .append(livro.getAutor())
-                        .append("\n");
-
-                texto.append("Gênero: ")
-                        .append(livro.getGenero())
-                        .append("\n");
-
-                texto.append("Status de reserva: ")
-                        .append(livro.getStatus())
-                        .append("\n");
-
+            for (Reserva reserva : reservas) {
+                texto.append("ID Reserva: ").append(reserva.getid_reserva()).append("\n");
+                texto.append("ID Leitor: ").append(reserva.getLeitor()).append("\n");
+                texto.append("ID Livro: ").append(reserva.getLivro()).append("\n");
+                texto.append("Data da Reserva: ").append(reserva.getDataReserva()).append("\n");
                 texto.append("-----------------------------\n");
             }
 
@@ -125,19 +359,152 @@ public class MenuLeitor extends JFrame {
         }
 
         JScrollPane scroll = new JScrollPane(areaLista);
-
         JButton btnVoltar = new JButton("Voltar");
 
-        btnVoltar.addActionListener(e ->{
+        btnVoltar.addActionListener(e -> {
             new MenuLeitor(id_leitor);
-            dispose();});
+            dispose();
+        });
 
         painel.add(titulo, BorderLayout.NORTH);
         painel.add(scroll, BorderLayout.CENTER);
         painel.add(btnVoltar, BorderLayout.SOUTH);
 
         setContentPane(painel);
+        revalidate();
+        repaint();
+    }
 
+    private void mostrarAlteracaoReserva() {
+        JPanel painel = new JPanel(new GridLayout(5, 2, 10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel lblReserva = new JLabel("Reserva:");
+        List<Reserva> reservas = manipuladorArquivos.lerReservas();
+        JComboBox<Reserva> cmbReserva = new JComboBox<>();
+
+        for (Reserva r : reservas) {
+            cmbReserva.addItem(r);
+        }
+
+        JLabel lblNovaData = new JLabel("Nova Data (DD/MM/AAAA):");
+        JTextField txtNovaData = new JTextField();
+
+        JButton btnBuscar = new JButton("Buscar");
+
+        btnBuscar.addActionListener(e -> {
+            try {
+                Reserva reserva = (Reserva) cmbReserva.getSelectedItem();
+                if (reserva == null) {
+                    JOptionPane.showMessageDialog(this, "Reserva não encontrada.");
+                    return;
+                }
+                txtNovaData.setText(reserva.getDataReserva());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao carregar os dados da reserva.");
+            }
+        });
+
+        JButton btnSalvar = new JButton("Salvar Alteração");
+
+        btnSalvar.addActionListener(e -> {
+            try {
+                if (cmbReserva.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(this, "Cadastre uma reserva para realizar alterações.");
+                    return;
+                }
+
+                Reserva reserva = (Reserva) cmbReserva.getSelectedItem();
+
+                ReservaControle.editarReserva(
+                        reserva.getid_reserva(),
+                        txtNovaData.getText().trim(),
+                        this);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao alterar a reserva.");
+            }
+        });
+
+        JButton btnVoltar = new JButton("Voltar");
+
+        btnVoltar.addActionListener(e -> {
+            dispose();
+            new MenuLeitor(id_leitor);
+        });
+
+        painel.add(lblReserva);
+        painel.add(cmbReserva);
+        painel.add(lblNovaData);
+        painel.add(txtNovaData);
+        painel.add(btnBuscar);
+        painel.add(btnSalvar);
+        painel.add(new JLabel());
+        painel.add(btnVoltar);
+
+        setContentPane(painel);
+        revalidate();
+        repaint();
+    }
+
+    private void mostrarExclusaoReserva() {
+        JPanel painel = new JPanel(new BorderLayout(10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel titulo = new JLabel("Excluir Reserva", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 18));
+
+        JPanel painelCentro = new JPanel(new GridLayout(2, 2, 10, 10));
+        JLabel lblId = new JLabel("ID da Reserva:");
+
+        List<Reserva> reservas = manipuladorArquivos.lerReservas();
+        JComboBox<Reserva> cmbReserva = new JComboBox<>();
+
+        for (Reserva r : reservas) {
+            cmbReserva.addItem(r);
+        }
+
+        JButton btnExcluir = new JButton("Excluir");
+
+        btnExcluir.addActionListener(e -> {
+            try {
+                Reserva reserva = (Reserva) cmbReserva.getSelectedItem();
+
+                if (reserva == null) {
+                    JOptionPane.showMessageDialog(this, "Reserva não encontrada.");
+                    return;
+                }
+
+                ReservaControle.excluirReserva(reserva.getid_reserva(), this);
+
+                cmbReserva.removeAllItems();
+                List<Reserva> reservasNovas = manipuladorArquivos.lerReservas();
+
+                for (Reserva r : reservasNovas) {
+                    cmbReserva.addItem(r);
+                }
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir reserva.");
+            }
+        });
+
+        JButton btnVoltar = new JButton("Voltar");
+
+        btnVoltar.addActionListener(e -> {
+            dispose();
+            new MenuLeitor(id_leitor);
+        });
+
+        painelCentro.add(lblId);
+        painelCentro.add(cmbReserva);
+        painelCentro.add(btnExcluir);
+        painelCentro.add(btnVoltar);
+
+        painel.add(titulo, BorderLayout.NORTH);
+        painel.add(painelCentro, BorderLayout.CENTER);
+
+        setContentPane(painel);
         revalidate();
         repaint();
     }

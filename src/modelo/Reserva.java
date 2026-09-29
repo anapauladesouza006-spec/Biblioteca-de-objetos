@@ -89,4 +89,9 @@ public class Reserva {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return id_reserva + " - " + status + " - " + sdf.format(data_retirada) + " - " + livro + " - " + leitor + " - " + ativa;
     }
+
+    public String getDataReserva() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDataReserva'");
+    }
 }

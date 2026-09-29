@@ -4,6 +4,7 @@ import modelo.Leitor;
 import modelo.Livro;
 import modelo.Reserva;
 import util.manipuladorArquivos;
+import view.menus.MenuLeitor;
 
 import javax.swing.*;
 import java.text.ParseException;
@@ -77,4 +78,16 @@ public class ReservaControle {
                 .filter(r -> r.getData_retirada().before(new Date()) && r.getStatus().equals("Ativa"))
                 .toList();
     }
+
+    public static void excluirReserva(int getid_reserva, MenuLeitor menuLeitor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'excluirReserva'");
+    }
+
+    public static void editarReserva(int getid_reserva, String trim, MenuLeitor menuLeitor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'editarReserva'");
+    }
+
+
 }

@@ -2,6 +2,7 @@ package controle;
 
 import modelo.Leitor;
 import util.manipuladorArquivos;
+import view.menus.MenuLeitor;
 
 import javax.swing.*;
 import java.util.List;
@@ -38,6 +39,16 @@ public class LeitorControle {
                 .filter(l -> l.getId_leitor() == idLeitor)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static void excluirLeitor(int id_leitor, MenuLeitor menuLeitor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'excluirLeitor'");
+    }
+
+    public static void editarLeitor(int id_leitor, String trim, String trim2, String trim3, MenuLeitor menuLeitor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'editarLeitor'");
     }
 }
 
