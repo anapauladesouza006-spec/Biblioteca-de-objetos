@@ -12,6 +12,7 @@ import view.screens.TelaReserva;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MenuLeitor extends JFrame {
@@ -28,23 +29,9 @@ public class MenuLeitor extends JFrame {
         JPanel painel = new JPanel(new GridLayout(10, 1, 5, 5));
         painel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
+        
         JButton btnListarLivros = new JButton("Listar Livros Disponíveis");
         btnListarLivros.addActionListener(e -> mostrarListaLivros());
-
-        JButton btnCadastrarLeitor = new JButton("Cadastrar Leitor");
-        btnCadastrarLeitor.addActionListener(e -> {
-            dispose();
-            new TelaCadastroLeitor(this.id_leitor);
-        });
-
-        JButton btnEditarLeitor = new JButton("Editar Leitor");
-        btnEditarLeitor.addActionListener(e -> mostrarAlteracaoLeitor());
-
-        JButton btnListarLeitor = new JButton("Listar Leitores");
-        btnListarLeitor.addActionListener(e -> mostrarListaLeitores());
-
-        JButton btnExcluirLeitor = new JButton("Excluir Leitor");
-        btnExcluirLeitor.addActionListener(e -> mostrarExclusaoLeitor());
 
         JButton btnCadastrarReserva = new JButton("Cadastrar Reserva");
         btnCadastrarReserva.addActionListener(e -> {
@@ -74,10 +61,6 @@ public class MenuLeitor extends JFrame {
         });
 
         painel.add(btnListarLivros);
-        painel.add(btnCadastrarLeitor);
-        painel.add(btnEditarLeitor);
-        painel.add(btnListarLeitor);
-        painel.add(btnExcluirLeitor);
         painel.add(btnCadastrarReserva);
         painel.add(btnListarReserva);
         painel.add(btnEditarReserva);
@@ -135,199 +118,6 @@ public class MenuLeitor extends JFrame {
         repaint();
     }
 
-    // CRUD DE LEITOR
-
-    private void mostrarListaLeitores() {
-        JPanel painel = new JPanel(new BorderLayout(10, 10));
-        painel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-
-        JLabel titulo = new JLabel("Leitores Cadastrados", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 18));
-
-        JTextArea areaLista = new JTextArea();
-        areaLista.setEditable(false);
-
-        List<Leitor> leitores = manipuladorArquivos.lerLeitores();
-
-        if (leitores.isEmpty()) {
-            areaLista.setText("Nenhum leitor cadastrado.");
-        } else {
-            StringBuilder texto = new StringBuilder();
-            for (Leitor leitor : leitores) {
-                texto.append("ID: ").append(leitor.getId_leitor()).append("\n");
-                texto.append("Nome: ").append(leitor.getNome()).append("\n");
-                texto.append("E-mail: ").append(leitor.getEmail()).append("\n");
-                texto.append("Telefone: ").append(leitor.getTelefone()).append("\n");
-                texto.append("-----------------------------\n");
-            }
-            areaLista.setText(texto.toString());
-        }
-
-        JScrollPane scroll = new JScrollPane(areaLista);
-        JButton btnVoltar = new JButton("Voltar");
-
-        btnVoltar.addActionListener(e -> {
-            new MenuLeitor(id_leitor);
-            dispose();
-        });
-
-        painel.add(titulo, BorderLayout.NORTH);
-        painel.add(scroll, BorderLayout.CENTER);
-        painel.add(btnVoltar, BorderLayout.SOUTH);
-
-        setContentPane(painel);
-        revalidate();
-        repaint();
-    }
-
-    private void mostrarAlteracaoLeitor() {
-        JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
-        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        JLabel lblLeitor = new JLabel("Leitor:");
-        List<Leitor> leitores = manipuladorArquivos.lerLeitores();
-        JComboBox<Leitor> cmbLeitor = new JComboBox<>();
-
-        for (Leitor l : leitores) {
-            cmbLeitor.addItem(l);
-        }
-
-        JLabel lblNome = new JLabel("Novo Nome:");
-        JTextField txtNome = new JTextField();
-
-        JLabel lblEmail = new JLabel("Novo E-mail:");
-        JTextField txtEmail = new JTextField();
-
-        JLabel lblTelefone = new JLabel("Novo Telefone:");
-        JTextField txtTelefone = new JTextField();
-
-        JButton btnBuscar = new JButton("Buscar");
-
-        btnBuscar.addActionListener(e -> {
-            try {
-                Leitor leitor = (Leitor) cmbLeitor.getSelectedItem();
-                if (leitor == null) {
-                    JOptionPane.showMessageDialog(this, "Leitor não encontrado.");
-                    return;
-                }
-                txtNome.setText(leitor.getNome());
-                txtEmail.setText(leitor.getEmail());
-                txtTelefone.setText(leitor.getTelefone());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao buscar dados do leitor.");
-            }
-        });
-
-        JButton btnSalvar = new JButton("Salvar Alteração");
-
-        btnSalvar.addActionListener(e -> {
-            try {
-                if (cmbLeitor.getSelectedItem() == null) {
-                    JOptionPane.showMessageDialog(this, "Cadastre um leitor para realizar alterações.");
-                    return;
-                }
-
-                Leitor leitor = (Leitor) cmbLeitor.getSelectedItem();
-
-                LeitorControle.editarLeitor(
-                        leitor.getId_leitor(),
-                        txtNome.getText().trim(),
-                        txtEmail.getText().trim(),
-                        txtTelefone.getText().trim(),
-                        this);
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao atualizar leitor.");
-            }
-        });
-
-        JButton btnVoltar = new JButton("Voltar");
-
-        btnVoltar.addActionListener(e -> {
-            dispose();
-            new MenuLeitor(id_leitor);
-        });
-
-        painel.add(lblLeitor);
-        painel.add(cmbLeitor);
-        painel.add(lblNome);
-        painel.add(txtNome);
-        painel.add(lblEmail);
-        painel.add(txtEmail);
-        painel.add(lblTelefone);
-        painel.add(txtTelefone);
-        painel.add(btnBuscar);
-        painel.add(btnSalvar);
-        painel.add(new JLabel());
-        painel.add(btnVoltar);
-
-        setContentPane(painel);
-        revalidate();
-        repaint();
-    }
-
-    private void mostrarExclusaoLeitor() {
-        JPanel painel = new JPanel(new BorderLayout(10, 10));
-        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        JLabel titulo = new JLabel("Excluir Leitor", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 18));
-
-        JPanel painelCentro = new JPanel(new GridLayout(2, 2, 10, 10));
-        JLabel lblId = new JLabel("ID do Leitor:");
-
-        List<Leitor> leitores = manipuladorArquivos.lerLeitores();
-        JComboBox<Leitor> cmbLeitor = new JComboBox<>();
-
-        for (Leitor l : leitores) {
-            cmbLeitor.addItem(l);
-        }
-
-        JButton btnExcluir = new JButton("Excluir");
-
-        btnExcluir.addActionListener(e -> {
-            try {
-                Leitor leitor = (Leitor) cmbLeitor.getSelectedItem();
-
-                if (leitor == null) {
-                    JOptionPane.showMessageDialog(this, "Leitor não encontrado.");
-                    return;
-                }
-
-                LeitorControle.excluirLeitor(leitor.getId_leitor(), this);
-
-                cmbLeitor.removeAllItems();
-                List<Leitor> leitoresNovos = manipuladorArquivos.lerLeitores();
-
-                for (Leitor l : leitoresNovos) {
-                    cmbLeitor.addItem(l);
-                }
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao excluir leitor.");
-            }
-        });
-
-        JButton btnVoltar = new JButton("Voltar");
-
-        btnVoltar.addActionListener(e -> {
-            dispose();
-            new MenuLeitor(id_leitor);
-        });
-
-        painelCentro.add(lblId);
-        painelCentro.add(cmbLeitor);
-        painelCentro.add(btnExcluir);
-        painelCentro.add(btnVoltar);
-
-        painel.add(titulo, BorderLayout.NORTH);
-        painel.add(painelCentro, BorderLayout.CENTER);
-
-        setContentPane(painel);
-        revalidate();
-        repaint();
-    }
-
     // CRUD DE RESERVA
 
     private void mostrarListaReservas() {
@@ -340,7 +130,7 @@ public class MenuLeitor extends JFrame {
         JTextArea areaLista = new JTextArea();
         areaLista.setEditable(false);
 
-        List<Reserva> reservas = manipuladorArquivos.lerReservas();
+        List<Reserva> reservas = ReservaControle.listarReservasLeitor(this.id_leitor);
 
         if (reservas.isEmpty()) {
             areaLista.setText("Nenhuma reserva cadastrada.");
@@ -348,10 +138,11 @@ public class MenuLeitor extends JFrame {
             StringBuilder texto = new StringBuilder();
 
             for (Reserva reserva : reservas) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 texto.append("ID Reserva: ").append(reserva.getid_reserva()).append("\n");
                 texto.append("ID Leitor: ").append(reserva.getLeitor()).append("\n");
                 texto.append("ID Livro: ").append(reserva.getLivro()).append("\n");
-                texto.append("Data da Reserva: ").append(reserva.getDataReserva()).append("\n");
+                texto.append("Data da Reserva: ").append(sdf.format(reserva.getData_retirada())).append("\n");
                 texto.append("-----------------------------\n");
             }
 
@@ -380,7 +171,7 @@ public class MenuLeitor extends JFrame {
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel lblReserva = new JLabel("Reserva:");
-        List<Reserva> reservas = manipuladorArquivos.lerReservas();
+        List<Reserva> reservas = ReservaControle.listarReservasLeitor(this.id_leitor);
         JComboBox<Reserva> cmbReserva = new JComboBox<>();
 
         for (Reserva r : reservas) {
@@ -399,7 +190,8 @@ public class MenuLeitor extends JFrame {
                     JOptionPane.showMessageDialog(this, "Reserva não encontrada.");
                     return;
                 }
-                txtNovaData.setText(reserva.getDataReserva());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                txtNovaData.setText((sdf.format(reserva.getData_retirada())));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao carregar os dados da reserva.");
             }

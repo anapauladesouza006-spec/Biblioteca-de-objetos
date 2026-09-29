@@ -257,4 +257,10 @@ public class ReservaControle {
                 menuLeitor,
                 "Reserva excluída com sucesso!");
     }
+
+    public static List<Reserva> listarReservasLeitor(int id_leitor) {
+        return manipuladorArquivos.lerReservas().stream()
+        .filter(r -> r.getLeitor().getId_leitor() == id_leitor)
+        .toList();
+    }
 }
