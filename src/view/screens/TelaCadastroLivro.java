@@ -28,14 +28,11 @@ public class TelaCadastroLivro extends JFrame {
     private void mostrarTela() {
 
         JPanel painel = new JPanel(
-                new GridLayout(8, 2, 10, 10));
+                new GridLayout(7, 2, 10, 10));
 
         painel.setBorder(
                 BorderFactory.createEmptyBorder(
                         20, 20, 20, 20));
-
-        JLabel lblId = new JLabel("ID do Livro:");
-        JTextField txtId = new JTextField();
 
         JLabel lblTitulo = new JLabel("Título:");
         JTextField txtTitulo = new JTextField();
@@ -49,7 +46,6 @@ public class TelaCadastroLivro extends JFrame {
         JLabel lblStatus = new JLabel("Status:");
         JTextField txtStatus = new JTextField("Disponivel");
 
-        // CADASTRAR
         JButton btnCadastrar = new JButton("Cadastrar");
 
         btnCadastrar.addActionListener(e -> {
@@ -63,23 +59,27 @@ public class TelaCadastroLivro extends JFrame {
                     idSecretaria);
         });
 
-        // LISTAR
         JButton btnListar = new JButton("Listar");
 
         btnListar.addActionListener(e -> listarLivros());
 
-        // ALTERAR
         JButton btnAlterar = new JButton("Alterar");
 
         btnAlterar.addActionListener(e -> {
 
+            String entrada = JOptionPane.showInputDialog(
+                    this,
+                    "Digite o ID do livro que deseja alterar:");
+
+            if (entrada == null || entrada.trim().isEmpty()) {
+                return;
+            }
+
             try {
 
-                int id = Integer.parseInt(
-                        txtId.getText().trim());
+                int id = Integer.parseInt(entrada.trim());
 
-                Livro livro =
-                        LivroControle.obterLivro(id);
+                Livro livro = LivroControle.obterLivro(id);
 
                 if (livro == null) {
 
@@ -90,13 +90,27 @@ public class TelaCadastroLivro extends JFrame {
                     return;
                 }
 
-                LivroControle.editarLivro(
-                        id,
-                        txtTitulo.getText().trim(),
-                        txtAutor.getText().trim(),
-                        txtGenero.getText().trim(),
-                        txtStatus.getText().trim(),
-                        this);
+                txtTitulo.setText(livro.getTitulo());
+                txtAutor.setText(livro.getAutor());
+                txtGenero.setText(livro.getGenero());
+                txtStatus.setText(livro.getStatus());
+
+                int resposta = JOptionPane.showConfirmDialog(
+                        this,
+                        "Deseja salvar as alterações deste livro?",
+                        "Alterar livro",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (resposta == JOptionPane.YES_OPTION) {
+
+                    LivroControle.editarLivro(
+                            id,
+                            txtTitulo.getText().trim(),
+                            txtAutor.getText().trim(),
+                            txtGenero.getText().trim(),
+                            txtStatus.getText().trim(),
+                            this);
+                }
 
             } catch (NumberFormatException ex) {
 
@@ -106,18 +120,23 @@ public class TelaCadastroLivro extends JFrame {
             }
         });
 
-        // EXCLUIR
         JButton btnExcluir = new JButton("Excluir");
 
         btnExcluir.addActionListener(e -> {
 
+            String entrada = JOptionPane.showInputDialog(
+                    this,
+                    "Digite o ID do livro que deseja excluir:");
+
+            if (entrada == null || entrada.trim().isEmpty()) {
+                return;
+            }
+
             try {
 
-                int id = Integer.parseInt(
-                        txtId.getText().trim());
+                int id = Integer.parseInt(entrada.trim());
 
-                Livro livro =
-                        LivroControle.obterLivro(id);
+                Livro livro = LivroControle.obterLivro(id);
 
                 if (livro == null) {
 
@@ -132,13 +151,6 @@ public class TelaCadastroLivro extends JFrame {
                         id,
                         this);
 
-                limparCampos(
-                        txtId,
-                        txtTitulo,
-                        txtAutor,
-                        txtGenero,
-                        txtStatus);
-
             } catch (NumberFormatException ex) {
 
                 JOptionPane.showMessageDialog(
@@ -147,13 +159,9 @@ public class TelaCadastroLivro extends JFrame {
             }
         });
 
-        // VOLTAR
         JButton btnVoltar = new JButton("Voltar");
 
         btnVoltar.addActionListener(e -> voltarMenu());
-
-        painel.add(lblId);
-        painel.add(txtId);
 
         painel.add(lblTitulo);
         painel.add(txtTitulo);
@@ -179,7 +187,6 @@ public class TelaCadastroLivro extends JFrame {
         add(painel);
     }
 
-    // LISTAR LIVROS
     private void listarLivros() {
 
         List<Livro> livros =
@@ -240,22 +247,6 @@ public class TelaCadastroLivro extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // LIMPAR CAMPOS
-    private void limparCampos(
-            JTextField txtId,
-            JTextField txtTitulo,
-            JTextField txtAutor,
-            JTextField txtGenero,
-            JTextField txtStatus) {
-
-        txtId.setText("");
-        txtTitulo.setText("");
-        txtAutor.setText("");
-        txtGenero.setText("");
-        txtStatus.setText("Disponivel");
-    }
-
-    // VOLTAR
     private void voltarMenu() {
 
         dispose();
@@ -264,3 +255,4 @@ public class TelaCadastroLivro extends JFrame {
                 idSecretaria);
     }
 }
+

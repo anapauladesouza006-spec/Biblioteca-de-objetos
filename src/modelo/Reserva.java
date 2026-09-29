@@ -91,7 +91,10 @@ public class Reserva {
     }
 
     public String getDataReserva() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDataReserva'");
+
+        SimpleDateFormat sdf =
+                new SimpleDateFormat("dd/MM/yyyy");
+
+        return sdf.format(data_retirada);
     }
 }
