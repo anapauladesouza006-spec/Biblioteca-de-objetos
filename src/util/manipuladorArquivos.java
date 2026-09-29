@@ -200,19 +200,20 @@ public class manipuladorArquivos {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         df.setLenient(false);
 
-        for (String[] campos : ler("Reserva", 5)) {
+        for (String[] campos : ler("Reserva", 6)) {
             try {
                 int id = Integer.parseInt(campos[0]);
                 String status = campos[1];
                 Date dataRetirada = df.parse(campos[2]);
                 int idLivro = Integer.parseInt(campos[3]);
                 int idLeitor = Integer.parseInt(campos[4]);
+                boolean ativa = Boolean.getBoolean(campos[5]);
 
                 Livro livro = LivroControle.obterLivro(idLivro);
                 Leitor leitor = LeitorControle.obterLeitor(idLeitor);
 
                 if (livro != null && leitor != null) {
-                    lista.add(new Reserva(id, status, dataRetirada, livro, leitor));
+                    lista.add(new Reserva(id, status, dataRetirada, livro, leitor, ativa));
                 }
             } catch (Exception e) {
                 System.err.println("Erro ao ler reserva: " + e.getMessage());
@@ -266,13 +267,14 @@ public class manipuladorArquivos {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);
 
-        for (String[] campos : ler("Emprestimo", 5)) {
+        for (String[] campos : ler("Emprestimo", 6)) {
             try {
                 int id = Integer.parseInt(campos[0]);
                 Date dataDevolucao = sdf.parse(campos[1]);
                 int idLivro = Integer.parseInt(campos[2]);
                 int idSecretaria = Integer.parseInt(campos[3]);
                 int idLeitor = Integer.parseInt(campos[4]);
+                boolean ativa = Boolean.getBoolean(campos[5]);
 
                 Livro livro = LivroControle.obterLivro(idLivro);
                 Secretaria secretaria = SecretariaControle.obterSecretaria(idSecretaria);
@@ -284,7 +286,7 @@ public class manipuladorArquivos {
                             dataDevolucao,
                             livro,
                             secretaria,
-                            leitor));
+                            leitor, ativa));
                 }
             } catch (Exception e) {
                 System.err.println("Erro ao ler empréstimo: " + e.getMessage());

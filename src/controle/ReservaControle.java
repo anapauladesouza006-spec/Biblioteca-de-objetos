@@ -46,7 +46,7 @@ public class ReservaControle {
 
         int id = manipuladorArquivos.proximoId("Reserva");
 
-        Reserva reserva = new Reserva(id, status, data, livro, leitor);
+        Reserva reserva = new Reserva(id, status, data, livro, leitor, true);
 
         if(idSecretaria != 0){
             SecretariaControle.obterSecretaria(idSecretaria).cadastrarReserva(reserva);
@@ -70,5 +70,11 @@ public class ReservaControle {
 
     public static List<Reserva> listarReservas() {
         return manipuladorArquivos.lerReservas();
+    }
+
+    public static List<Reserva> listarReservasPendentes() {
+        return manipuladorArquivos.lerReservas().stream()
+                .filter(r -> r.getData_retirada().before(new Date()) && r.getStatus().equals("Ativa"))
+                .toList();
     }
 }

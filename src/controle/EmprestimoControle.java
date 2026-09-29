@@ -57,7 +57,7 @@ public class EmprestimoControle {
                 dataDevolucao,
                 livro,
                 SecretariaControle.obterSecretaria(idSecretaria),
-                LeitorControle.obterLeitor(idLeitor)
+                LeitorControle.obterLeitor(idLeitor), true
         );
 
         SecretariaControle.obterSecretaria(idSecretaria).cadastrarEmprestimo(emprestimo);
@@ -76,15 +76,6 @@ public class EmprestimoControle {
         new view.menus.MenuSecretaria(idSecretaria);
     }
 
-    public static Emprestimo obterEmprestimo(int idEmprestimo) {
-        List<Emprestimo> emprestimos = manipuladorArquivos.lerEmprestimos();
-
-        return emprestimos.stream()
-                .filter(e -> e.getId_emprestimo() == idEmprestimo)
-                .findFirst()
-                .orElse(null);
-    }
-
     public static Emprestimo buscarEmprestimo(int id_leitor, int id_livro) {
         List<Emprestimo> emprestimos = manipuladorArquivos.lerEmprestimos();
 
@@ -94,4 +85,6 @@ public class EmprestimoControle {
                 .findFirst()
                 .orElse(null);
     }
+
+
 }

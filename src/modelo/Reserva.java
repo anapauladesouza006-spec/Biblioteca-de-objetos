@@ -9,13 +9,15 @@ public class Reserva {
     private Date data_retirada;
     private Livro livro;
     private Leitor leitor;
+    private boolean ativa;
 
-    public Reserva(int id, String status, Date data_retirada, Livro livro, Leitor leitor) {
+    public Reserva(int id, String status, Date data_retirada, Livro livro, Leitor leitor, boolean ativa) {
         this.id_reserva = id;
         this.status = status;
         this.data_retirada = data_retirada;
         this.livro = livro;
         this.leitor = leitor;
+        this.ativa = ativa;
     }
 
     public void reservar(Livro livro) {
@@ -66,16 +68,25 @@ public class Reserva {
         this.leitor = leitor;
     }
 
+    public boolean getAtiva() {
+        return ativa;
+    }
+
+    public void setAtiva(boolean ativa) {
+        this.ativa = ativa;
+    }
+
     public String toCSV() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return String.join(";", String.valueOf(id_reserva), status, sdf.format(data_retirada),
                 String.valueOf(this.getLivro().getId_livro()),
-                String.valueOf(this.getLeitor().getId_leitor()));
+                String.valueOf(this.getLeitor().getId_leitor()),
+                String.valueOf(ativa));
     }
 
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return id_reserva + " - " + status + " - " + sdf.format(data_retirada) + " - " + livro + " - " + leitor;
+        return id_reserva + " - " + status + " - " + sdf.format(data_retirada) + " - " + livro + " - " + leitor + " - " + ativa;
     }
 }

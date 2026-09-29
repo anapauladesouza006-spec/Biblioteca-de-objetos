@@ -68,6 +68,10 @@ public class MenuSecretaria extends JFrame {
 
         btnListarReserva.addActionListener(e -> listarReservas());
 
+        JButton btnListarReservaPendente = new JButton("Lista de Reservas Pendentes");
+
+        btnListarReservaPendente.addActionListener(e -> listarReservasPendentes());
+
         JButton btnDevolucao = new JButton("Devolução");
         btnDevolucao.addActionListener(e -> {
             dispose();
@@ -89,6 +93,7 @@ public class MenuSecretaria extends JFrame {
         painel.add(btnDevolucao);
         painel.add(btnReservar);
         painel.add(btnListarReserva);
+        painel.add(btnListarReservaPendente);
         painel.add(btnSair);
 
         add(painel);
@@ -97,6 +102,58 @@ public class MenuSecretaria extends JFrame {
 
     private void listarReservas() {
         java.util.List<Reserva> reservas = ReservaControle.listarReservas();
+
+        if (reservas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhuma reserva cadastrada.");
+            return;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        StringBuilder texto = new StringBuilder();
+
+        for (Reserva reserva : reservas) {
+            texto.append("ID: ")
+                    .append(reserva.getid_reserva())
+                    .append("\n");
+
+            texto.append("Status: ")
+                    .append(reserva.getStatus())
+                    .append("\n");
+
+            texto.append("Data de retirada: ")
+                    .append(sdf.format(reserva.getData_retirada()))
+                    .append("\n");
+
+            texto.append("Livro: ")
+                    .append(reserva.getLivro().getTitulo())
+                    .append("\n");
+
+            texto.append("Leitor: ")
+                    .append(reserva.getLeitor().getNome())
+                    .append("\n");
+
+            texto.append("------------------------------\n");
+        }
+
+        JTextArea area = new JTextArea(texto.toString());
+        area.setEditable(false);
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+
+        JScrollPane scroll = new JScrollPane(area);
+        scroll.setPreferredSize(new Dimension(450, 350));
+
+        JOptionPane.showMessageDialog(
+                this,
+                scroll,
+                "Lista de Reservas",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+
+    private void listarReservasPendentes() {
+        java.util.List<Reserva> reservas = ReservaControle.listarReservasPendentes();
 
         if (reservas.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nenhuma reserva cadastrada.");

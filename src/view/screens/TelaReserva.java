@@ -42,7 +42,7 @@ public class TelaReserva extends JFrame {
             cmbLivro.addItem(livro);
         }
 
-        JTextField txtRetirada = new JTextField();
+        JTextField txtReserva = new JTextField();
 
         JPanel painel = new JPanel(new GridLayout(4, 2, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -53,8 +53,8 @@ public class TelaReserva extends JFrame {
         painel.add(new JLabel("Livro:"));
         painel.add(cmbLivro);
 
-        painel.add(new JLabel("Data da retirada:"));
-        painel.add(txtRetirada);
+        painel.add(new JLabel("Data para reserva:"));
+        painel.add(txtReserva);
 
         JButton btnVoltar = new JButton("Voltar");
 
@@ -82,7 +82,7 @@ public class TelaReserva extends JFrame {
             Leitor leitor = (Leitor) cmbLeitor.getSelectedItem();
             Livro livro = (Livro) cmbLivro.getSelectedItem();
 
-            String data = txtRetirada.getText().trim();
+            String data = txtReserva.getText().trim();
 
             ReservaControle.cadastrarReserva(
                     data,

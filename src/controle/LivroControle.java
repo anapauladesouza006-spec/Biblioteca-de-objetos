@@ -39,4 +39,12 @@ public class LivroControle {
                 .findFirst()
                 .orElse(null);
     }
+
+    public static List<Livro> livrosEmprestados(){
+        List<Livro> livros = manipuladorArquivos.lerLivros();
+
+        return livros.stream()
+                .filter(l -> l.getStatus().equals("Emprestado"))
+                .toList();
+    }
 }
